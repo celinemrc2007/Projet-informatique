@@ -36,4 +36,8 @@ void lancerNiveau(int xcurseur, int ycurseur, int temps_restant) {
 	}
 }
 
-
+void gerePerteVies(int *nb_vies_restantes){
+    if (*nb_vies_restantes > 0) {
+        (*nb_vies_restantes)--; //utilisateur perd une vie s'il lui en reste
+    }
+}
