@@ -47,4 +47,36 @@ void afficherGrille (char grille[HAUTEUR][LARGEUR]){
         printf("\n");
     }
     printf("#################\n");
+
+void afficherCoupsRestants(int coups)
+{
+    printf("Coups restants : %d\n", coups);
+}
+
+void afficherItemsRestants(int x, int o, int et, int at, int pourcent)
+{
+    printf("Items restants :\n");
+    printf("X : %d\n", x);
+    printf("O : %d\n", o);
+    printf("& : %d\n", et);
+    printf("@ : %d\n", at);
+    printf("%% : %d\n", pourcent);
+}
+
+int menu(void)
+{
+    int choix;
+
+    printf("===== MENU PRINCIPAL =====\n");
+    printf("1. Lire les regles\n");
+    printf("2. Nouvelle partie\n");
+    printf("3. Reprendre une partie\n");
+    printf("4. Quitter\n");
+    printf("Votre choix : ");
+    scanf("%d", &choix);
+
+    return choix;
+}
+
+
 }
