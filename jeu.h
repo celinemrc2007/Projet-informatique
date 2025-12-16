@@ -12,3 +12,5 @@ int jeu (int temps_restant);
 void genererItems(char grille[10][9]);
 void gererContrat(char item, int *x, int *o, int *et, int *at, int *pourcent);
 void malus(int *coups);
+void gererVictoirePartie(void);
+void gererEchecPartie(void);
