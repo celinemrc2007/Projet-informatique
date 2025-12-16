@@ -25,7 +25,7 @@ typedef struct {
     int colonne;
     int taille;
 	int type;	  //SUITE_LIGNE, SUITE_COLONNE, CARRE, CROIX
-} ResultatFIGURE; //structure à utiliser pour eliminer une figure
+} ResultatFigure; //structure à utiliser pour eliminer une figure
 
 void viderGrille() {
 	for (int i=0; i<HAUTEUR; i++) {
@@ -41,9 +41,9 @@ int verifierAbsencesFiduresInitiales () {
 	}
 }
 
-ResultatSuite detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
+ResultatFigure detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    ResultatSuite resultatL = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatL = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=0; i<HAUTEUR; i++){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
@@ -73,9 +73,9 @@ eliminerSuiteEnLigne(resultatL) {
 	}	
 }
 
-ResultatSuite detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
+ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    ResultatSuite resultatC = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatC = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les colonnes donc la largeur
     for(j=0; j<LARGEUR; j++){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
@@ -124,7 +124,7 @@ eliminerCroix (resultatL, resultatC) {
 	}	
 }
 
-eliminerFigure () {			//Elimine la fonction adéquate en fonction du type de la figure
+eliminerFigure (resultatL, resultatC) {			//Elimine la fonction adéquate en fonction du type de la figure 
 	switch(resultat.type) {															
 	case SUITE_LIGNE : eliminerSuiteEnLigne (resultatL);
 		break;
