@@ -19,19 +19,33 @@
 
 char grille[HAUTEUR][LARGEUR];		//Déclaration de la variable globale grille (matrice de taille HAUTEUR*LARGEUR) utilisé dans la majorité des sous-programme de ce module
 
-void eliminerSuiteEnLigne(int ligne, int colonne, int taille) {
+void viderGrille() {
+	for (int i=0; i<HAUTEUR; i++) {
+		for (int j=0; j<LARGEUR; j++) {
+			grille[i][j] = 0;
+		}
+	}
+}
+
+int verifierAbsencesFiduresInitiales () {
+	if(detecterFigure != PAS_DE_FIGURE) {
+		return 1;
+	}
+}
+
+eliminerSuiteEnLigne(int ligne, int colonne, int taille) {
 	for (int i=0; i<taille; i++) {                      
 		grille[ligne][colonne + i] = 0; //Parcourir les cases de la suite de gauche à droite
 	}	
 }
 
-void eliminerSuiteEnColonne(int ligne, int colonne, int taille) {
+eliminerSuiteEnColonne(int ligne, int colonne, int taille) {
 	for (int i=0; i<taille; i++) {
 		grille[ligne + i][colonne] = 0; //Parcourir les cases de la suite de haut en bas et affecter 0 à chacune de ces cases
 	}	
 }
 
-void eliminerCarre (int ligne, int colonne) {
+eliminerCarre (int ligne, int colonne) {
 	for (int i=0; i<TAILLE_CARRE; i++) {
 		grille[ligne][colonne + i] = 0;                 //Parcourir la ligne la plus haute du carre de gauche à droite et affecter 0 à chacune de ces cases
 		grille[ligne+TAILLE_CARRE-1][colonne + i] = 0;  //Parcourir la ligne la plus basse du carre de gauche à droite et affecter 0 à chacune de ces cases
@@ -42,7 +56,7 @@ void eliminerCarre (int ligne, int colonne) {
 	}
 }
 
-void eliminerCroix (int ligne, int colonne) {
+eliminerCroix (int ligne, int colonne) {
 	for (int i=0; i<TAILLE_CROIX; i++) {
 		grille[ligne][colonne + i - 2] = 0;				//Se placer au centre de la croix, aller 2 cases vers la gauche et parcourir les cases de gauche à droite en affectant 0 à chacune de ces cases
 	}	
@@ -51,7 +65,7 @@ void eliminerCroix (int ligne, int colonne) {
 	}	
 }
 
-void eliminerFigure (int type, int ligne, int colonne, int taille) {			//Elimine la fonction adéquate en fonction du type de la figure
+eliminerFigure (int type, int ligne, int colonne, int taille) {			//Elimine la fonction adéquate en fonction du type de la figure
 	switch(type) {															
 	case SUITE_LIGNE : eliminerSuiteEnLigne (ligne, colonne, taille);
 		break;
@@ -64,7 +78,16 @@ void eliminerFigure (int type, int ligne, int colonne, int taille) {			//Elimine
 	}
 }
 
-void melangerItems() {									//Echange les coordonnées de deux items choisis aléatoirement
+appliquerGravite () {
+
+
+}
+
+void assurerGrilleJouable () {
+	
+}
+
+melangerItems() {									//Echange les coordonnées de deux items choisis aléatoirement
 	int l1, int c1, int l2, int c2, int temp;
 	l1 = rand() % HAUTEUR;
 	l2 = rand() % HAUTEUR;
@@ -83,12 +106,9 @@ int jeu (int temps_restant) {
 
 	srand(time(NULL));
 	 do {
-	 	detecterFigure(&type, &ligne, &colonne, &taille);
-	 	if (type!=PAS_DE_FIGURE) {
 	 		printf("Il y a deja des combinaisons possibles. Melange en cours ...");
 			melangerItems();	
-	 	}
-	} while (type!=PAS_DE_FIGURE);	
+	} while (verifierAbsencesFiduresInitiales==1);	
 	
 	deplacementTouches(touche_pressee);
 	selectionItems(touche_pressee);
@@ -112,5 +132,4 @@ int jeu (int temps_restant) {
 		gererEchecNiveau(vies);
 	}
 }
-
 
