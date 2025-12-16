@@ -25,6 +25,12 @@ typedef struct {
     int taille;
 } ResultatSuite; //structure à utiliser pour eliminer la suite
 
+typedef struct{
+    int trouve;
+    int ligne;
+    int colonne; 
+}Centrecroix; //structure à utiliser pour eliminer la croix
+
 void viderGrille() {
 	for (int i=0; i<HAUTEUR; i++) {
 		for (int j=0; j<LARGEUR; j++) {
