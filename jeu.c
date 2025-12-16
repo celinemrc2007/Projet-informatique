@@ -20,7 +20,7 @@
 char grille[HAUTEUR][LARGEUR];		//Déclaration de la variable globale grille (matrice de taille HAUTEUR*LARGEUR) utilisé dans la majorité des sous-programme de ce module
 								  //Valeurs de 1 à 6 (5 items + malus) remplacés dans GenererItems par des symboles
 typedef struct {
-    int trouve;     // 0 = aucune suite, 1 = suite trouvée
+    int trouve;     // 0 = aucune figure, 1 = figure trouvée
     int ligne;
     int colonne;
     int taille;
