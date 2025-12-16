@@ -10,8 +10,9 @@ void afficherNumeroNiveau(int niveau){ //afficher le numero du niveau (1 2 ou 3)
     printf("Niveau actuel : %d\n", niveau);
 } 
 
-void afficherNombredeVies(int *nb_vies_restantes){ //afficher le nombre de vies restantes du joueur à tout moment
-    printf("Vies restantes : %d", *nb_vies_restantes);
+
+void afficherNombredeVies(int nb_vies_restantes){
+    printf("Vies restantes : %d\n", nb_vies_restantes);
 }
 
 void afficherTempsrestant(int tempsrestant){ //afficher le temps restant pour chaque niveau en seconde
