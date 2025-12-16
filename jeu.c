@@ -78,7 +78,7 @@ eliminerFigure (int type, int ligne, int colonne, int taille) {			//Elimine la f
 	}
 }
 
-appliquerGravite () {
+void appliquerGravite () {
 
 
 }
