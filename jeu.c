@@ -43,7 +43,7 @@ int verifierAbsencesFiduresInitiales () {
 
 ResultatFigure detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    ResultatFigure resultatL = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatL = {0, -1, -1, 0, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=0; i<HAUTEUR; i++){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
@@ -57,7 +57,7 @@ ResultatFigure detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
                     resultatL.ligne = i; //on veut le numero de la ligne où se trouve la suite
                     resultatL.colonne = j - compteur + 1;//on veut le numero de la première colonne où commence la suite
                     resultatL.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
-					resultatL.type = SUITE_LIGNE;
+					resultatL.type = 1; //type SUITE_EN_LIGNE
                     return resultatL;
                 }
             }else compteur = 1; // reinitialisation
@@ -75,7 +75,7 @@ void eliminerSuiteEnLigne(resultatL) {
 
 ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    ResultatFigure resultatC = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatC = {0, -1, -1, 0, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les colonnes donc la largeur
     for(j=0; j<LARGEUR; j++){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
@@ -89,7 +89,7 @@ ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
                     resultatC.ligne = i-compteur + 1; //on veut le numero de la première ligne où commence la suite
                     resultatC.colonne = j;
                     resultatC.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
-					resultatL.type = SUITE_COLONNE;
+					resultatL.type = 2; //type SUITE_EN_COLONNE
                     return resultatC;
                 }
             }else compteur = 1; //reinitialisation si les deux cases consécutives ne sont pas identiques
@@ -106,7 +106,7 @@ void eliminerSuiteEnColonne(resultatC) {
 
 ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    ResultatFigure resultatCr = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatCr = {0, -1, -1, 0, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=0; i<HAUTEUR-3; i++){
         //boucle for pour parcourir les colonnes donc la largeur
@@ -119,7 +119,8 @@ ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
                 resultatCr.trouve = 1; 
                 resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
                 resultatCr.colonne = j; //colonne où se trouve la case en haut à gauche du carré
-				resultatCr.type = CARRE;
+				resultatCr.taille = 4; //le carré fait 4 items de côté
+				resultatCr.type = 3; //type CARRE
                 return resultatCr;
             }
         }
@@ -142,7 +143,7 @@ void eliminerCarre (resultatL, resultatC) { //utilise resultatCr
 
 ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    ResultatFigure resultatCx = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatCx = {0, -1, -1, 0, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=2; i<HAUTEUR-2; i++){ //au minimum le centre de la croix se trouve à la ligne 2
         //boucle for pour parcourir les colonnes donc la largeur
@@ -155,7 +156,8 @@ ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
                 resultatCx.trouve = 1;
                 resultatCx.ligne = i; //ligne où se trouve la case centrale de la croix
                 resultatCx.colonne = j; //colonne où se trouve la case centrale de la croix
-				resultatCx.type = CROIX; 
+				resultatCx.taille = 5; //la croix fait 5 items par branche 
+				resultatCx.type = 4; //type CROIX 
                 return resultatCx;
             }
         }
