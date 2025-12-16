@@ -24,7 +24,7 @@ typedef struct {
     int ligne;
     int colonne;
     int taille;
-	int type;	  //SUITE_LIGNE, SUITE_COLONNE, CARRE, CROIX
+	int type;	  //SUITE_LIGNE, SUITE_COLONNE, CARRE, CROIX, PAS_DE_FIGURE
 } ResultatFigure; //structure à utiliser pour eliminer une figure
 
 void viderGrille() {
