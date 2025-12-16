@@ -69,7 +69,7 @@ ResultatFigure detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
 
 void eliminerSuiteEnLigne(resultatL) { 
 	for (int i=0; i<taille; i++) {                      
-		grille[resultatL.ligne][resultatL.colonne + i] = 0; //Parcourir les cases de la suite de gauche à droite
+		grille[resultatL.ligne][resultatL.colonne + i] = ' '; //Parcourir les cases de la suite de gauche à droite
 	}	
 }
 
