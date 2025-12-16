@@ -9,5 +9,6 @@ void eliminerFigure (int type, int ligne, int colonne, int taille);
 void appliquerGravite ();
 void melangerItems ();
 int jeu (int temps_restant);
-
-
+void genererItems(char grille[10][9]);
+void gererContrat(char item, int *x, int *o, int *et, int *at, int *pourcent);
+void malus(int *coups);
