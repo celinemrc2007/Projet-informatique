@@ -365,5 +365,15 @@ void malus(int *coups)
 {
     *coups = *coups - 1;
 }
+
+void gererVictoirePartie(void)
+{
+    printf("VICTOIRE !\n");
+}
+
+void gererEchecPartie(void)
+{
+    printf("DEFAITE !\n");
+}
 	
 }
