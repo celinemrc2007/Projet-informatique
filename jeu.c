@@ -256,16 +256,14 @@ void assurerGrilleJouable () {
 	
 }
 
-melangerItems() {									//Echange les coordonnées de deux items choisis aléatoirement
+void melangerItems() {									//Echange les coordonnées de deux items choisis aléatoirement
 	int l1, int c1, int l2, int c2, int temp;
 	l1 = rand() % HAUTEUR;
 	l2 = rand() % HAUTEUR;
 	c1 = rand() % LARGEUR;
 	c2 = rand() % LARGEUR;
 
-	temp = grille[l1][c1];							
-	grille[l1][c1] = grille[l2][c2];				
-	grille[l2][c2] = temp;
+	permuterItems(l1, c1, l2, c2);
 }
 
 
