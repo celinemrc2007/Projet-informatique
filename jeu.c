@@ -104,10 +104,31 @@ void eliminerSuiteEnColonne(resultatC) {
 	}	
 }
 
+ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
+    int i, j;
+    ResultatFigure resultatCr = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    //boucle for pour parcourir les lignes donc la hauteur
+    for(i=0; i<HAUTEUR-3; i++){
+        //boucle for pour parcourir les colonnes donc la largeur
+        for(j=0; j<LARGEUR-3; j++){
+
+            char c = grille[i][j]; //enregistrement du type d'item dans la variable c
+            if(c==' ') continue; //si la case est vide, on continue de chercher dans la grille
+
+            if(grille[i][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i+3][j]== c && grille[i+3][j+1]== c && grille[i+3][j+2]== c && grille[i+3][j+3]== c && grille[i][j+1]== c && grille[i][j+2]== c && grille[i][j+3]== c && grille[i+1][j+3]== c && grille[i+2][j+3]== c){
+                resultatCr.trouve = 1; 
+                resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
+                resultatCr.colonne = j; //colonne où se trouve la case en haut à gauche du carré
+				resultatCr.type = CARRE;
+                return resultatCr;
+            }
+        }
+    }
+    return resultatCr; //aucun carré trouvé
+}
 
 
-
-void eliminerCarre (resultatL, resultatC) {
+void eliminerCarre (resultatL, resultatC) { //utilise resultatCr
 	for (int i=0; i<TAILLE_CARRE; i++) {
 		grille[resultatL.ligne][resultatL.colonne + i] = 0;                 //Parcourir la ligne la plus haute du carre de gauche à droite et affecter 0 à chacune de ces cases
 		grille[ligne+TAILLE_CARRE-1][colonne + i] = 0;  //Parcourir la ligne la plus basse du carre de gauche à droite et affecter 0 à chacune de ces cases
@@ -121,7 +142,7 @@ void eliminerCarre (resultatL, resultatC) {
 
 ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    Centrecroix resultatCx = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatCx = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=2; i<HAUTEUR-2; i++){ //au minimum le centre de la croix se trouve à la ligne 2
         //boucle for pour parcourir les colonnes donc la largeur
@@ -150,6 +171,11 @@ void eliminerCroix (resultatL, resultatC) { //utilise resultatCx
 		grille[resultatC.ligne + i - 2][resultatC.colonne] = 0;				//Se placer au centre de la croix, aller 2 cases vers la haut et parcourir les cases haut en bas en affectant 0 à chacune de ces cases
 	}	
 }
+
+
+
+
+
 
 void eliminerFigure (resultatL, resultatC) {			//Elimine la fonction adéquate en fonction du type de la figure 
 	switch(resultat.type) {															
