@@ -24,7 +24,7 @@ typedef struct {
     int ligne;
     int colonne;
     int taille;
-	int type;	  //SUITE_LIGNE, SUITE_COLONNE, CARRE, CROIX, PAS_DE_FIGURE
+	int type;	  //SUITE_LIGNE (1), SUITE_COLONNE (2), CARRE (3), CROIX (4), PAS_DE_FIGURE (0)
 } ResultatFigure; //structure à utiliser pour eliminer une figure
 
 void viderGrille() {
@@ -73,6 +73,7 @@ void eliminerSuiteEnLigne(resultatL) {
 	}	
 }
 
+
 ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
     int i, j;
     ResultatFigure resultatC = {0, -1, -1, 0, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
@@ -97,6 +98,7 @@ ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
     }
     return resultatC; //aucune suite trouvée
 }
+
 
 void eliminerSuiteEnColonne(resultatC) { 
 	for (int i=0; i<taille; i++) {
@@ -165,6 +167,7 @@ ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
     return resultatCx; //aucune croix trouvée
 }
 
+
 void eliminerCroix (resultatL, resultatC) { //utilise resultatCx
 	for (int i=0; i<TAILLE_CROIX; i++) {
 		grille[resultatL.ligne][resultatL.colonne + i - 2] = 0;				//Se placer au centre de la croix, aller 2 cases vers la gauche et parcourir les cases de gauche à droite en affectant 0 à chacune de ces cases
@@ -175,19 +178,65 @@ void eliminerCroix (resultatL, resultatC) { //utilise resultatCx
 }
 
 
+ResultatFigure detecterFigure(char grille[HAUTEUR][LARGEUR]){
+    ResultatFigure resultatglobal = {0, -1, -1, 0, 0}; //initialisation à PAS_DE_FIGURE du retour de la fonction
+    //Croix
+    ResultatFigure s3 = detecterCroix(grille[HAUTEUR][LARGEUR]); //enregistrement resultatCx dans s3
+    if(s3.trouve){
+        resultatglobal.trouve = s3.trouve; 
+        resultatglobal.ligne = s3.ligne;
+        resultatglobal.colonne = s3.colonne;
+        resultatglobal.taille = s3.taille;
+        resultatglobal.type = s3.type; 
+        return resultatglobal; //structure identique à resultatCx
+    }
+
+    //Carre
+    ResultatFigure s4 = detecterCarre(grille[HAUTEUR][LARGEUR]); //enregistrement resultatCr dans s4
+    if(s4.trouve){
+        resultatglobal.trouve = s4.trouve; 
+        resultatglobal.ligne = s4.ligne;
+        resultatglobal.colonne = s4.colonne;
+        resultatglobal.taille = s4.taille;
+        resultatglobal.type = s4.type; 
+        return resultatglobal; //structre identique à resultatCr
+    }
+
+    //Suite en ligne 
+    ResultatFigure s1 = detecterSuiteEnLigne(grille[HAUTEUR][LARGEUR]); //enregistrement resultatL dans s1
+    if(s1.trouve){
+        resultatglobal.trouve = s1.trouve;
+        resultatglobal.ligne = s1.ligne;
+        resultatglobal.colonne = s1.colonne;
+        resultatglobal.taille = s1.taille;
+        resultatglobal.type = s1.type; 
+        return resultatglobal; //structure identique à resultatL
+    }
+
+    //Suite en colonne
+    ResultatFigure s2 = detecterSuiteEnColonne(grille[HAUTEUR][LARGEUR]); //enregistrement resultatC dans s2
+    if(s2.trouve){
+        resultatglobal.trouve = s2.trouve; 
+        resultatglobal.ligne = s2.ligne;
+        resultatglobal.colonne = s2.colonne;
+        resultatglobal.taille = s2.taille;
+        resultatglobal.type = s2.type; 
+        return resultatglobal; //structure identique à resultatC
+    }
+    return resultatglobal; //pas de figure détectée
+}
 
 
 
-
-void eliminerFigure (resultatL, resultatC) {			//Elimine la fonction adéquate en fonction du type de la figure 
-	switch(resultat.type) {															
-	case SUITE_LIGNE : eliminerSuiteEnLigne (resultatL);
+void eliminerFigure (ResultaFigure resultatglobal) {			//Elimine la fonction adéquate en fonction du type de la figure 
+	switch(resultatglobal.type) {															
+	case 1 : eliminerSuiteEnLigne (resultatL); //type SUITE_EN_LIGNE
 		break;
-	case SUITE_COLONNE : eliminerSuiteEnColonne (resultatC);
+	case 2 : eliminerSuiteEnColonne (resultatC); //type SUITE_EN_COLONNE
 		break;
-	case CARRE : eliminerCarre(resultatL, resultatC);
+	case 3 : eliminerCarre(resultatL, resultatC); //type CARRE
 		break;
-	case CROIX : eliminerCroix (resultatL, resultatC);
+	case 4 : eliminerCroix (resultatL, resultatC); //type CROIX
 		break;
 	}
 }
