@@ -43,7 +43,7 @@ int verifierAbsencesFiguresInitiales () {
 
 ResultatFigure detecterSuiteEnLigne(){
     int i, j;
-    ResultatFigure resultatL = {PAS_DE_FIGURE, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatL = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=0; i<HAUTEUR; i++){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
@@ -57,7 +57,7 @@ ResultatFigure detecterSuiteEnLigne(){
                     resultatL.ligne = i; //on veut le numero de la ligne où se trouve la suite
                     resultatL.colonne = j - compteur + 1;//on veut le numero de la première colonne où commence la suite
                     resultatL.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
-					resultatL.type = SUITE_LIGNE;
+					resultatL.type = 0; //type PAS_DE_FIGURE
                     return resultatL;
                 }
             }
@@ -123,7 +123,7 @@ ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
                 resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
                 resultatCr.colonne = j; //colonne où se trouve la case en haut à gauche du carré
 				resultatCr.taille = 4; //le carré fait 4 items de côté
-				resultatCr.type = CARRE; 
+				resultatCr.type = 3; //type CARRE
                 return resultatCr;
             }
         }
@@ -159,7 +159,7 @@ ResultatFigure detecterCroix(){
                 resultatCx.ligne = i; //ligne où se trouve la case centrale de la croix
                 resultatCx.colonne = j; //colonne où se trouve la case centrale de la croix
 				resultatCx.taille = 5; //la croix fait 5 items par branche 
-				resultatCx.type = CROIX;  
+				resultatCx.type = 4;  //type CROIX
                 return resultatCx;
             }
         }
@@ -179,28 +179,33 @@ void eliminerCroix (ResultatFigure resultatCx) { //utilise resultatCx
 
 
 ResultatFigure detecterFigure(){
+	ResultatFigure resultatglobal;
     //Croix
-    ResultatFigure s3 = detecterCroix(); //enregistrement resultatCx dans s3
-    if (s3.type != PAS_DE_FIGURE) {  // Croix trouvée
-        return s3;
+    resultatglobal = detecterCroix(); //enregistrement resultatCx dans resultatglobal
+    if (resultatglobal.type != 0) {  // Croix trouvée
+        return resultatglobal;
     }
     //Carre
-    ResultatFigure s4 = detecterCarre(); //enregistrement resultatCr dans s4
-    if (s4.type != PAS_DE_FIGURE) {   // Carré trouvé
-        return s4;
+    resultatglobal = detecterCarre(); //enregistrement resultatCr dans resultatglobal
+    if (resultatglobal.type != 0) {   // Carré trouvé
+        return resultatglobal;
     }
     //Suite en ligne 
-    ResultatFigure s1 = detecterSuiteEnLigne(); //enregistrement resultatL dans s1
-    if (s1.type != PAS_DE_FIGURE) {   // Suite en ligne trouvée
-        return s1;
+    resultatglobal = detecterSuiteEnLigne(); //enregistrement resultatL dans resultatglobal
+    if (resultatglobal.type != 0) {   // Suite en ligne trouvée
+        return resultatglobal;
     }
     //Suite en colonne
-    ResultatFigure s2 = detecterSuiteEnColonne(); //enregistrement resultatC dans s2
-    if (s2.type != PAS_DE_FIGURE) {   // Suite en colonne trouvée
-        return s2;
+    resultatglobal = detecterSuiteEnColonne(); //enregistrement resultatC dans resultatglobal
+    if (resultatglobal.type != 0) {   // Suite en colonne trouvée
+        return resultatglobal;
     }
     // Pas de figure détectée
-    return {PAS_DE_FIGURE, 0, 0, 0};
+	resultatglobal.type = 0;
+    resultatglobal.ligne = -1;
+    resultatglobal.colonne = -1;
+    resultatglobal.taille = 0;
+    return resultatglobal;
 }
 
 
@@ -262,6 +267,47 @@ melangerItems() {									//Echange les coordonnées de deux items choisis aléa
 	grille[l1][c1] = grille[l2][c2];				
 	grille[l2][c2] = temp;
 }
+
+
+void permuterItems(int l1, int c1, int l2, int c2){
+    //permutation temporaire
+    char temp =grille[l1][c1];
+    grille[l1][c1]= grille[l2][c2];
+    grille[l2][c2]= temp;
+}
+
+int sontAdjacentes(int l1, int c1, int l2, int c2){ //verifier si les deux cases sont à côtés l'une de l'autre
+    return (abs(l1 - l2) + abs(c1 - c2)) == 1; //calcule de la valeur absolue de la difference entre les deux lignes (vaudrat 0 ou 1) et les deux colonnes (vaudrat 0 ou 1)
+}
+
+ int permuterSiValide(int l1, int c1, int l2, int c2){
+    ResultatFigure fig; //variable qui contiendra le retour de la fonction detecterFigure
+    //tester si les cases sont à côté
+    if (!sontAdjacentes(l1, c1, l2, c2)) {
+        return 0; // permutation invalide
+    }
+    //permutation temporaire
+    permuterItems(l1, c1, l2, c2);
+
+    //tester si au moins une figure est détectée après la permutation
+    fig = detecterFigure();
+    if(fig.type != 0){ //s'il y a au moins une figure detectée
+        //permutation valide -> on laisse les cases
+        return 1; 
+    }
+    //si aucune figure -> on annule la permutation
+    permuterItems(l1, c1, l2, c2);
+    return 0;
+ }
+
+//exemple d'utilisation 
+if (permuterSiValide(l1, c1, l2, c2)) {
+    // appel EliminerFigure + chute + score
+} else {
+    printf("%c", 7); //bip pour avertir le joueur que le coup n'est pas possible
+}
+
+
 
 
 int jeu (int temps_restant) {
