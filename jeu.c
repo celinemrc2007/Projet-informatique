@@ -375,5 +375,11 @@ void gererEchecPartie(void)
 {
     printf("DEFAITE !\n");
 }
+
+void quitterProgramme(void)
+{
+    printf("Au revoir !\n");
+    exit(0);
+}
 	
 }
