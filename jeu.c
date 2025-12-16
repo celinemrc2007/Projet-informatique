@@ -104,6 +104,9 @@ eliminerSuiteEnColonne(resultatC) {
 	}	
 }
 
+
+
+
 eliminerCarre (resultatL, resultatC) {
 	for (int i=0; i<TAILLE_CARRE; i++) {
 		grille[resultatL.ligne][resultatL.colonne + i] = 0;                 //Parcourir la ligne la plus haute du carre de gauche à droite et affecter 0 à chacune de ces cases
@@ -115,7 +118,31 @@ eliminerCarre (resultatL, resultatC) {
 	}
 }
 
-eliminerCroix (resultatL, resultatC) {
+
+ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
+    int i, j;
+    Centrecroix resultatCx = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    //boucle for pour parcourir les lignes donc la hauteur
+    for(i=2; i<HAUTEUR-2; i++){ //au minimum le centre de la croix se trouve à la ligne 2
+        //boucle for pour parcourir les colonnes donc la largeur
+        for(j=2; j<LARGEUR-2; j++){ //au minimum le centre de la croix se trouve à la colonne 2
+
+            char c = grille[i][j]; //enregistrement du type d'item dans la variable c
+            if(c==' ') continue; //si la case est vide, on continue de chercher dans la grille
+
+            if(grille[i][j]== c && grille[i-1][j]== c && grille[i-2][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i][j-1]== c && grille[i][j-2]== c && grille[i][j+1]== c && grille[i][j+2]== c){
+                resultatCx.trouve = 1;
+                resultatCx.ligne = i; //ligne où se trouve la case centrale de la croix
+                resultatCx.colonne = j; //colonne où se trouve la case centrale de la croix
+				resultatCx.type = CROIX; 
+                return resultatCx;
+            }
+        }
+    }
+    return resultatCx; //aucune croix trouvée
+}
+
+eliminerCroix (resultatL, resultatC) { //utilise resultatCx
 	for (int i=0; i<TAILLE_CROIX; i++) {
 		grille[resultatL.ligne][resultatL.colonne + i - 2] = 0;				//Se placer au centre de la croix, aller 2 cases vers la gauche et parcourir les cases de gauche à droite en affectant 0 à chacune de ces cases
 	}	
