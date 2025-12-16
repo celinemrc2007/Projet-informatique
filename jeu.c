@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,13 +19,12 @@
 #define TAILLE_BONUS_EXPLOSION 6     //Bonus imposé par la consigne
 
 char grille[HAUTEUR][LARGEUR];		//Déclaration de la variable globale grille (matrice de taille HAUTEUR*LARGEUR) utilisé dans la majorité des sous-programme de ce module
-								  //Valeurs de 1 à 6 (5 items + malus) remplacés dans GenererItems par des symboles
+								  //Valeurs de 0 à 6 (5 items + malus) remplacés dans GenererItems par des symboles
 typedef struct {
-    int trouve;     // 0 = aucune figure, 1 = figure trouvée
+    int type;     //SUITE_LIGNE (1), SUITE_COLONNE (2), CARRE (3), CROIX (4), PAS_DE_FIGURE (0)
     int ligne;
     int colonne;
     int taille;
-	int type;	  //SUITE_LIGNE (1), SUITE_COLONNE (2), CARRE (3), CROIX (4), PAS_DE_FIGURE (0)
 } ResultatFigure; //structure à utiliser pour eliminer une figure
 
 void viderGrille() {
@@ -35,21 +35,21 @@ void viderGrille() {
 	}
 }
 
-int verifierAbsencesFiduresInitiales () {
-	if(detecterFigure != PAS_DE_FIGURE) {
+int verifierAbsencesFiguresInitiales () {
+	if(detecterFigure() != PAS_DE_FIGURE) {
 		return 1;
 	}
 }
 
-ResultatFigure detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
+ResultatFigure detecterSuiteEnLigne(){
     int i, j;
-    ResultatFigure resultatL = {0, -1, -1, 0, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatL = {PAS_DE_FIGURE, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=0; i<HAUTEUR; i++){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
         //boucle for pour parcourir les colonnes donc la largeur
         for(j=1; j<LARGEUR; j++){
-            if(grille[i][j]==grille[i][j-1] && grille[i][j] != ' '){ //comparaison de deux cases consécutives
+            if(grille[i][j]==grille[i][j-1] && grille[i][j] != 0){ //comparaison de deux cases consécutives
                 compteur++;
     
                 if(compteur>=3){ //on a une suite valide si elle fait au moins 3 cases
@@ -57,24 +57,25 @@ ResultatFigure detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
                     resultatL.ligne = i; //on veut le numero de la ligne où se trouve la suite
                     resultatL.colonne = j - compteur + 1;//on veut le numero de la première colonne où commence la suite
                     resultatL.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
-					resultatL.type = 1; //type SUITE_EN_LIGNE
+					resultatL.type = SUITE_LIGNE;
                     return resultatL;
                 }
-            }else compteur = 1; // reinitialisation
+            }
+            else compteur = 1; // reinitialisation
         }
     }
     return resultatL; //aucune suite trouvée
 }
 
 
-void eliminerSuiteEnLigne(resultatL) { 
-	for (int i=0; i<taille; i++) {                      
-		grille[resultatL.ligne][resultatL.colonne + i] = ' '; //Parcourir les cases de la suite de gauche à droite
-	}	
+void eliminerSuiteEnLigne(ResultatFigure resultatL) { 
+    for (int i=0; i<taille; i++) {                      
+        grille[resultatL.ligne][resultatL.colonne + i] = 0; //Parcourir les cases de la suite de gauche à droite
+    }   
 }
 
 
-ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
+ResultatFigure detecterSuiteEnColonne(){
     int i, j;
     ResultatFigure resultatC = {0, -1, -1, 0, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les colonnes donc la largeur
@@ -82,7 +83,7 @@ ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
         //boucle for pour parcourir les lignes donc la hauteur
         for(i=1; i<HAUTEUR; i++){
-            if(grille[i][j]==grille[i-1][j] && grille[i][j] != ' '){ //comparaison de deux cases consécutives
+            if(grille[i][j]==grille[i-1][j] && grille[i][j] != 0){ //comparaison de deux cases consécutives
                 compteur++;
 
                 if(compteur>=3){//on a une suite valide si elle fait au moins 3 cases
@@ -100,7 +101,7 @@ ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
 }
 
 
-void eliminerSuiteEnColonne(resultatC) { 
+void eliminerSuiteEnColonne(ResultatFigure resultatC) { 
 	for (int i=0; i<taille; i++) {
 		grille[resultatC.ligne + i][resultatC.colonne] = 0; //Parcourir les cases de la suite de haut en bas et affecter 0 à chacune de ces cases
 	}	
@@ -122,7 +123,7 @@ ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
                 resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
                 resultatCr.colonne = j; //colonne où se trouve la case en haut à gauche du carré
 				resultatCr.taille = 4; //le carré fait 4 items de côté
-				resultatCr.type = 3; //type CARRE
+				resultatCr.type = CARRE; 
                 return resultatCr;
             }
         }
@@ -131,19 +132,19 @@ ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
 }
 
 
-void eliminerCarre (resultatL, resultatC) { //utilise resultatCr
+void eliminerCarre (ResultatFigure resultatCr) { //utilise resultatCr
 	for (int i=0; i<TAILLE_CARRE; i++) {
-		grille[resultatL.ligne][resultatL.colonne + i] = 0;                 //Parcourir la ligne la plus haute du carre de gauche à droite et affecter 0 à chacune de ces cases
-		grille[ligne+TAILLE_CARRE-1][colonne + i] = 0;  //Parcourir la ligne la plus basse du carre de gauche à droite et affecter 0 à chacune de ces cases
+		grille[resultatCr.ligne][resultatCr.colonne + i] = 0;                 //Parcourir la ligne la plus haute du carre de gauche à droite et affecter 0 à chacune de ces cases
+		grille[resultatCr.ligne+TAILLE_CARRE-1][resultatCr.colonne + i] = 0;  //Parcourir la ligne la plus basse du carre de gauche à droite et affecter 0 à chacune de ces cases
 	}	
 	for (int i=0; i<TAILLE_CARRE; i++) {
-		grille[resultatC.ligne + i][resultatC.colonne] = 0;                 //Parcourir la ligne la plus à gauche du carre de haut en bas en affectant 0 à chacune de ces cases
-		grille[resultatC.ligne + i][resultatC.colonne+TAILLE_CARRE-1] = 0;  //Parcourir la ligne la plus à droite du carre de haut en bas en affectant 0 à chacune de ces cases
+		grille[resultatCr.ligne + i][resultatCr.colonne] = 0;                 //Parcourir la ligne la plus à gauche du carre de haut en bas en affectant 0 à chacune de ces cases
+		grille[resultatCr.ligne + i][resultatCr.colonne+TAILLE_CARRE-1] = 0;  //Parcourir la ligne la plus à droite du carre de haut en bas en affectant 0 à chacune de ces cases
 	}
 }
 
 
-ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
+ResultatFigure detecterCroix(){
     int i, j;
     ResultatFigure resultatCx = {0, -1, -1, 0, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
@@ -155,11 +156,10 @@ ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
             if(c==' ') continue; //si la case est vide, on continue de chercher dans la grille
 
             if(grille[i][j]== c && grille[i-1][j]== c && grille[i-2][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i][j-1]== c && grille[i][j-2]== c && grille[i][j+1]== c && grille[i][j+2]== c){
-                resultatCx.trouve = 1;
                 resultatCx.ligne = i; //ligne où se trouve la case centrale de la croix
                 resultatCx.colonne = j; //colonne où se trouve la case centrale de la croix
 				resultatCx.taille = 5; //la croix fait 5 items par branche 
-				resultatCx.type = 4; //type CROIX 
+				resultatCx.type = CROIX;  
                 return resultatCx;
             }
         }
@@ -168,82 +168,83 @@ ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
 }
 
 
-void eliminerCroix (resultatL, resultatC) { //utilise resultatCx
+void eliminerCroix (ResultatFigure resultatCx) { //utilise resultatCx
 	for (int i=0; i<TAILLE_CROIX; i++) {
-		grille[resultatL.ligne][resultatL.colonne + i - 2] = 0;				//Se placer au centre de la croix, aller 2 cases vers la gauche et parcourir les cases de gauche à droite en affectant 0 à chacune de ces cases
+		grille[resultatCx.ligne][resultatCx.colonne + i - 2] = 0;				//Se placer au centre de la croix, aller 2 cases vers la gauche et parcourir les cases de gauche à droite en affectant 0 à chacune de ces cases
 	}	
 	for (int i=0; i<TAILLE_CROIX; i++) {
-		grille[resultatC.ligne + i - 2][resultatC.colonne] = 0;				//Se placer au centre de la croix, aller 2 cases vers la haut et parcourir les cases haut en bas en affectant 0 à chacune de ces cases
+		grille[resultatCx.ligne + i - 2][resultatCx.colonne] = 0;				//Se placer au centre de la croix, aller 2 cases vers la haut et parcourir les cases haut en bas en affectant 0 à chacune de ces cases
 	}	
 }
 
 
-ResultatFigure detecterFigure(char grille[HAUTEUR][LARGEUR]){
-    ResultatFigure resultatglobal = {0, -1, -1, 0, 0}; //initialisation à PAS_DE_FIGURE du retour de la fonction
+ResultatFigure detecterFigure(){
     //Croix
-    ResultatFigure s3 = detecterCroix(grille[HAUTEUR][LARGEUR]); //enregistrement resultatCx dans s3
-    if(s3.trouve){
-        resultatglobal.trouve = s3.trouve; 
-        resultatglobal.ligne = s3.ligne;
-        resultatglobal.colonne = s3.colonne;
-        resultatglobal.taille = s3.taille;
-        resultatglobal.type = s3.type; 
-        return resultatglobal; //structure identique à resultatCx
+    ResultatFigure s3 = detecterCroix(); //enregistrement resultatCx dans s3
+    if (s3.type != PAS_DE_FIGURE) {  // Croix trouvée
+        return s3;
     }
-
     //Carre
-    ResultatFigure s4 = detecterCarre(grille[HAUTEUR][LARGEUR]); //enregistrement resultatCr dans s4
-    if(s4.trouve){
-        resultatglobal.trouve = s4.trouve; 
-        resultatglobal.ligne = s4.ligne;
-        resultatglobal.colonne = s4.colonne;
-        resultatglobal.taille = s4.taille;
-        resultatglobal.type = s4.type; 
-        return resultatglobal; //structre identique à resultatCr
+    ResultatFigure s4 = detecterCarre(); //enregistrement resultatCr dans s4
+    if (s4.type != PAS_DE_FIGURE) {   // Carré trouvé
+        return s4;
     }
-
     //Suite en ligne 
-    ResultatFigure s1 = detecterSuiteEnLigne(grille[HAUTEUR][LARGEUR]); //enregistrement resultatL dans s1
-    if(s1.trouve){
-        resultatglobal.trouve = s1.trouve;
-        resultatglobal.ligne = s1.ligne;
-        resultatglobal.colonne = s1.colonne;
-        resultatglobal.taille = s1.taille;
-        resultatglobal.type = s1.type; 
-        return resultatglobal; //structure identique à resultatL
+    ResultatFigure s1 = detecterSuiteEnLigne(); //enregistrement resultatL dans s1
+    if (s1.type != PAS_DE_FIGURE) {   // Suite en ligne trouvée
+        return s1;
     }
-
     //Suite en colonne
-    ResultatFigure s2 = detecterSuiteEnColonne(grille[HAUTEUR][LARGEUR]); //enregistrement resultatC dans s2
-    if(s2.trouve){
-        resultatglobal.trouve = s2.trouve; 
-        resultatglobal.ligne = s2.ligne;
-        resultatglobal.colonne = s2.colonne;
-        resultatglobal.taille = s2.taille;
-        resultatglobal.type = s2.type; 
-        return resultatglobal; //structure identique à resultatC
+    ResultatFigure s2 = detecterSuiteEnColonne(); //enregistrement resultatC dans s2
+    if (s2.type != PAS_DE_FIGURE) {   // Suite en colonne trouvée
+        return s2;
     }
-    return resultatglobal; //pas de figure détectée
+    // Pas de figure détectée
+    return {PAS_DE_FIGURE, 0, 0, 0};
 }
 
 
 
 void eliminerFigure (ResultaFigure resultatglobal) {			//Elimine la fonction adéquate en fonction du type de la figure 
 	switch(resultatglobal.type) {															
-	case 1 : eliminerSuiteEnLigne (resultatL); //type SUITE_EN_LIGNE
+	case 1 : eliminerSuiteEnLigne (resultatglobal); //type SUITE_EN_LIGNE
 		break;
-	case 2 : eliminerSuiteEnColonne (resultatC); //type SUITE_EN_COLONNE
+	case 2 : eliminerSuiteEnColonne (resultatglobal); //type SUITE_EN_COLONNE
 		break;
-	case 3 : eliminerCarre(resultatL, resultatC); //type CARRE
+	case 3 : eliminerCarre(resultatglobal); //type CARRE
 		break;
-	case 4 : eliminerCroix (resultatL, resultatC); //type CROIX
+	case 4 : eliminerCroix (resultatglobal); //type CROIX
 		break;
 	}
 }
 
+bool ligneNonPleine(int ligne) {
+    for (j=0 ; j<LARGEUR ; j++) {
+        if (grille[ligne][j] == 0) return true;
+    }
+    return false;
+}
+
 void appliquerGravite () {
-
-
+    // On parcourt la grille de bas en haut
+    for (int i=HAUTEUR-1 ; i>0 ; i--) {
+        // Tant qu'il y a une case vide sur la ligne courante i
+        while (ligneNonPleine(i)) {
+            for (j=0 ; j<LARGEUR ; j++) {
+                if (grille[i][j] == 0) {
+                    for (int ligne = i-1 ; ligne >=0 ; ligne++) {
+                        // On décale les cases vers le bas en partant du bas 
+                        grille[ligne+1][j] = grille[ligne][j];
+                    }
+                    // On vide la case du haut
+                    grille[0][j] = 0;
+                }
+            }
+            // Animation chute des items ligne par ligne
+            afficherGrille(grille[HAUTEUR][LARGEUR]);
+            sleep(40);
+        }
+    }
 }
 
 void assurerGrilleJouable () {
@@ -295,4 +296,3 @@ int jeu (int temps_restant) {
 		gererEchecNiveau(vies);
 	}
 }
-
