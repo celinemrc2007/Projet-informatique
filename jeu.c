@@ -124,8 +124,8 @@ eliminerCroix (resultatL, resultatC) {
 	}	
 }
 
-eliminerFigure (resultat) {			//Elimine la fonction adéquate en fonction du type de la figure
-	switch(type) {															
+eliminerFigure () {			//Elimine la fonction adéquate en fonction du type de la figure
+	switch(resultat.type) {															
 	case SUITE_LIGNE : eliminerSuiteEnLigne (resultatL);
 		break;
 	case SUITE_COLONNE : eliminerSuiteEnColonne (resultatC);
