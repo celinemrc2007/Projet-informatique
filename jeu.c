@@ -67,7 +67,7 @@ ResultatFigure detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
 }
 
 
-eliminerSuiteEnLigne(resultatL) { 
+void eliminerSuiteEnLigne(resultatL) { 
 	for (int i=0; i<taille; i++) {                      
 		grille[resultatL.ligne][resultatL.colonne + i] = 0; //Parcourir les cases de la suite de gauche à droite
 	}	
@@ -98,7 +98,7 @@ ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
     return resultatC; //aucune suite trouvée
 }
 
-eliminerSuiteEnColonne(resultatC) { 
+void eliminerSuiteEnColonne(resultatC) { 
 	for (int i=0; i<taille; i++) {
 		grille[resultatC.ligne + i][resultatC.colonne] = 0; //Parcourir les cases de la suite de haut en bas et affecter 0 à chacune de ces cases
 	}	
@@ -107,7 +107,7 @@ eliminerSuiteEnColonne(resultatC) {
 
 
 
-eliminerCarre (resultatL, resultatC) {
+void eliminerCarre (resultatL, resultatC) {
 	for (int i=0; i<TAILLE_CARRE; i++) {
 		grille[resultatL.ligne][resultatL.colonne + i] = 0;                 //Parcourir la ligne la plus haute du carre de gauche à droite et affecter 0 à chacune de ces cases
 		grille[ligne+TAILLE_CARRE-1][colonne + i] = 0;  //Parcourir la ligne la plus basse du carre de gauche à droite et affecter 0 à chacune de ces cases
@@ -142,7 +142,7 @@ ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
     return resultatCx; //aucune croix trouvée
 }
 
-eliminerCroix (resultatL, resultatC) { //utilise resultatCx
+void eliminerCroix (resultatL, resultatC) { //utilise resultatCx
 	for (int i=0; i<TAILLE_CROIX; i++) {
 		grille[resultatL.ligne][resultatL.colonne + i - 2] = 0;				//Se placer au centre de la croix, aller 2 cases vers la gauche et parcourir les cases de gauche à droite en affectant 0 à chacune de ces cases
 	}	
@@ -151,7 +151,7 @@ eliminerCroix (resultatL, resultatC) { //utilise resultatCx
 	}	
 }
 
-eliminerFigure (resultatL, resultatC) {			//Elimine la fonction adéquate en fonction du type de la figure 
+void eliminerFigure (resultatL, resultatC) {			//Elimine la fonction adéquate en fonction du type de la figure 
 	switch(resultat.type) {															
 	case SUITE_LIGNE : eliminerSuiteEnLigne (resultatL);
 		break;
