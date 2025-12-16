@@ -36,7 +36,8 @@ void afficherRegles(){
 
 void afficherGrille (char grille[HAUTEUR][LARGEUR]){
     int i, j;
-//boucle pour parcourir les colonnes
+    printf("############\n");
+    //boucle pour parcourir les colonnes
     for(i=0; i<HAUTEUR; i++){
         //boucle pour parcourir les lignes
         for(j=0; j<LARGEUR; j++){
@@ -44,4 +45,5 @@ void afficherGrille (char grille[HAUTEUR][LARGEUR]){
         }
         printf("\n");
     }
+    printf("############\n");
 }
