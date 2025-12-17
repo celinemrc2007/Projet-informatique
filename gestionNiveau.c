@@ -49,6 +49,18 @@ void malus(int *temps_fin, int ligne, int colonne)
     }
 }
 
+void gererVictoirePartie(int *niveau)
+{
+    if(*niveau == 3)
+    {
+        printf("Bravo ! Vous avez gagne la partie !\n");
+    }
+    else
+    {
+        (*niveau)++;
+    }
+}
+
 void gerePerteVies(int *nb_vies_restantes){
     if (*nb_vies_restantes > 0) {
         (*nb_vies_restantes)--; //utilisateur perd une vie s'il lui en reste
