@@ -43,6 +43,15 @@ void viderGrille() {
 	}
 }
 
+void genererItems(void)
+{
+    int i,j;
+    for(i=0;i<HAUTEUR;i++)
+        for(j=0;j<LARGEUR;j++)
+            if(grille[i][j]==0)
+                grille[i][j] = rand()%6 + 1;
+}
+
 int verifierAbsencesFiguresInitiales () {
 	if(detecterFigure() != PAS_DE_FIGURE) {
 		return 1;
