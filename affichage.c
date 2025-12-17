@@ -96,6 +96,7 @@ void afficherCoupsRestants(int coups_restants){
 // index = valeur de l'item
 // 0 inutilisé
 // 1 = X, 2 = O, 3 = &, 4 = @, 5 = %
+int itemsRestants[6];
 
 void afficherItemsRestants(int itemsRestants[]){
     gotoxy(0, 1); // ligne juste sous les coups
