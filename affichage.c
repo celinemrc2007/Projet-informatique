@@ -4,6 +4,7 @@
 #define HAUTEUR 10
 #define LARGEUR 9
 //X : 1                       O : 2                         & : 3                        @ : 4                  % : 5              malus : 6
+char grille[HAUTEUR][LARGEUR]; //variable globale
 
 void afficherNumeroNiveau(int niveau){ //afficher le numero du niveau (1 2 ou 3)
     gotoxy(0, 1); //position ligne 1
@@ -35,7 +36,7 @@ void afficherRegles(){
     printf("A vous de jouer !\n");
 }
 
-void afficherCadre(char grille[HAUTEUR][LARGEUR]) {
+void afficherCadre() {
     gotoxy(0,0);
     text_color(FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_GREEN); //les # seront blancs
     
