@@ -14,7 +14,7 @@ void eliminerFigure (int type, int ligne, int colonne, int taille);
 void appliquerGravite ();
 void melangerItems ();
 int jeu (int temps_restant);
-void genererItems(char grille[HAUTEUR][LARGEUR]);
+void genererItems(void);
 void gererContrat(char item, int *x, int *o, int *et, int *at, int *pourcent);
 void malus(int *coups);
 void gererVictoirePartie(void);
