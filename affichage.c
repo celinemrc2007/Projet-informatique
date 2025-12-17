@@ -3,6 +3,11 @@
 #include <conio.h>
 #define HAUTEUR 10
 #define LARGEUR 9
+##include <stdio.h>
+#include <windows.h>
+#include <conio.h>
+#define HAUTEUR 10
+#define LARGEUR 9
 #define DUREE 120000
 #define PAS_DE_FIGURE 0
 #define SUITE_LIGNE 1
@@ -76,7 +81,7 @@ void afficherGrille(){
                         text_color(FOREGROUND_GREEN);
                         printf("& "); break;
                     case 4: //jaune
-                        text_color(FOREGROUND_RED | FOREGROUND_GREEN)
+                        text_color(FOREGROUND_RED | FOREGROUND_GREEN);
                         printf("@ "); break;
                     case 5: //magenta
                         text_color(FOREGROUND_RED | FOREGROUND_BLUE);
@@ -115,7 +120,7 @@ void afficherItemsRestants(int itemsRestants[]){
     printf("Items restants : ");
     // X (1)
     text_color(FOREGROUND_RED);
-    printf("X : %d  ", itemRestants[1]);
+    printf("X : %d  ", itemsRestants[1]);
     
     // O (2)
     text_color(FOREGROUND_BLUE);
