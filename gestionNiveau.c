@@ -1,18 +1,19 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <windows.h> 
+#include "affichage.h"
+#include "sauvegarde.h"
+#include "gestionClavier.h"
+#include "sauvegarde.h"
+
 #define HAUTEUR 10
 #define LARGEUR 9
 #define DUREE 120000
 int niveau=1;
-//variables globales 
-int curseurL = 0;
-int curseurC = 0;
 
-int selectionActive = 0;
-int selL, selC;
 
 void lancerNiveau(int xcurseur, int ycurseur, int temps_restant) {
 	xcurseur=LARGEUR/2;
@@ -42,35 +43,8 @@ void lancerNiveau(int xcurseur, int ycurseur, int temps_restant) {
 	}
 }
 
-void malus(int *temps_fin, int ligne, int colonne)
-{
-    if (grille[ligne][colonne] == 6) {
-        *temps_fin -= 10;
-    }
-}
-
-void gererVictoirePartie(int *niveau)
-{
-    if(*niveau == 3)
-    {
-        printf("Bravo ! Vous avez gagne la partie !\n");
-    }
-    else
-    {
-        (*niveau)++;
-    }
-}
-
-void gererEchecPartie(int *vies)
-{
-    printf("Vous avez perdu la partie.\n");
-    *vies = 3;
-}
-
 void gerePerteVies(int *nb_vies_restantes){
     if (*nb_vies_restantes > 0) {
         (*nb_vies_restantes)--; //utilisateur perd une vie s'il lui en reste
     }
 }
-
-
