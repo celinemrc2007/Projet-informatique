@@ -77,20 +77,4 @@ void afficherItemsRestants(int x, int o, int et, int at, int pourcent)
     printf("%% : %d\n", pourcent);
 }
 
-int menu(void)
-{
-    int choix;
-
-    printf("===== MENU PRINCIPAL =====\n");
-    printf("1. Lire les regles du jeu\n");
-    printf("2. Commencer une nouvelle partie\n");
-    printf("3. Reprendre une partie\n");
-    printf("4. Quitter\n");
-    printf("Votre choix : ");
-    scanf("%d", &choix);
-
-    return choix;
-}
-
-
 }
