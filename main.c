@@ -4,6 +4,12 @@
 #include <time.h>
 #include <windows.h> 
 
+//variables globales 
+int curseurL = 0;
+int curseurC = 0;
+
+int selectionActive = 0;
+int selL, selC;
 //Afficher le menu
 int menu() {
     int choix;
