@@ -20,4 +20,4 @@ void malus(int *coups);
 void gererVictoirePartie(void);
 void gererEchecPartie(void);
 void quitterProgramme(void);
-int gererContrat(int *x, int *o, int *et, int *at, int *pourcent, char item, int taille);
+int gererContrat(int *cX, int *cO, int *cE, int *cA, int *cP, int item, int taille);
