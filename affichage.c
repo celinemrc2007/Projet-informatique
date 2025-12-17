@@ -70,7 +70,7 @@ void afficherGrille(){
                         printf("@ "); break;
                     case 5: //magenta
                         text_color(FOREGROUND_RED | FOREGROUND_BLUE);
-                        printf("%% "); break;
+                        printf("% "); break;
                     default: 
                         text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                         printf("? "); break;
