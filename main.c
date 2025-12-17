@@ -24,6 +24,13 @@ int menu() {
 
     return choix;
 }
+
+void quitterProgramme(void)
+{
+    printf("\nMerci d'avoir joue. A bientot !\n");
+    exit(0);
+}
+
 int main() {
     int choix;
     // initialisation du générateur pseudo-aléatoire
