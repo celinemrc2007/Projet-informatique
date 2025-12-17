@@ -82,8 +82,8 @@ int menu(void)
     int choix;
 
     printf("===== MENU PRINCIPAL =====\n");
-    printf("1. Lire les regles\n");
-    printf("2. Nouvelle partie\n");
+    printf("1. Lire les regles du jeu\n");
+    printf("2. Commencer une nouvelle partie\n");
     printf("3. Reprendre une partie\n");
     printf("4. Quitter\n");
     printf("Votre choix : ");
