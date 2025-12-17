@@ -271,6 +271,20 @@ void eliminerFigure (ResultaFigure resultatglobal) {			//Elimine la fonction ad√
 	}
 }
 
+int gererContrat(int *cX, int *cO, int *cE, int *cA, int *cP, int item, int taille)
+{
+    if(item==1) *cX -= taille;
+    if(item==2) *cO -= taille;
+    if(item==3) *cE -= taille;
+    if(item==4) *cA -= taille;
+    if(item==5) *cP -= taille;
+
+    if(*cX<=0 && *cO<=0 && *cE<=0 && *cA<=0 && *cP<=0)
+        return 1;
+
+    return 0;
+}
+
 bool ligneNonPleine(int ligne) {
     for (j=0 ; j<LARGEUR ; j++) {
         if (grille[ligne][j] == 0) return true;
