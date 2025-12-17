@@ -53,11 +53,10 @@ ResultatFigure detecterSuiteEnLigne(){
                 compteur++;
     
                 if(compteur>=3){ //on a une suite valide si elle fait au moins 3 cases
-                    resultatL.trouve = 1;
+					resultatL.type = 0; //type PAS_DE_FIGURE
                     resultatL.ligne = i; //on veut le numero de la ligne où se trouve la suite
                     resultatL.colonne = j - compteur + 1;//on veut le numero de la première colonne où commence la suite
                     resultatL.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
-					resultatL.type = 0; //type PAS_DE_FIGURE
                     return resultatL;
                 }
             }
@@ -87,11 +86,10 @@ ResultatFigure detecterSuiteEnColonne(){
                 compteur++;
 
                 if(compteur>=3){//on a une suite valide si elle fait au moins 3 cases
-                    resultatC.trouve = 1;
+					resultatL.type = 2; //type SUITE_EN_COLONNE
                     resultatC.ligne = i-compteur + 1; //on veut le numero de la première ligne où commence la suite
                     resultatC.colonne = j;
                     resultatC.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
-					resultatL.type = 2; //type SUITE_EN_COLONNE
                     return resultatC;
                 }
             }else compteur = 1; //reinitialisation si les deux cases consécutives ne sont pas identiques
@@ -115,15 +113,14 @@ ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
         //boucle for pour parcourir les colonnes donc la largeur
         for(j=0; j<LARGEUR-3; j++){
 
-            char c = grille[i][j]; //enregistrement du type d'item dans la variable c
-            if(c==' ') continue; //si la case est vide, on continue de chercher dans la grille
+            int c = grille[i][j]; //enregistrement du type d'item en entier dans la variable c
+            if(c==0) continue; //si la case est vide, on continue de chercher dans la grille
 
             if(grille[i][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i+3][j]== c && grille[i+3][j+1]== c && grille[i+3][j+2]== c && grille[i+3][j+3]== c && grille[i][j+1]== c && grille[i][j+2]== c && grille[i][j+3]== c && grille[i+1][j+3]== c && grille[i+2][j+3]== c){
-                resultatCr.trouve = 1; 
-                resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
+				resultatCr.type = 3; //type CARRE
+				resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
                 resultatCr.colonne = j; //colonne où se trouve la case en haut à gauche du carré
 				resultatCr.taille = 4; //le carré fait 4 items de côté
-				resultatCr.type = 3; //type CARRE
                 return resultatCr;
             }
         }
@@ -152,14 +149,14 @@ ResultatFigure detecterCroix(){
         //boucle for pour parcourir les colonnes donc la largeur
         for(j=2; j<LARGEUR-2; j++){ //au minimum le centre de la croix se trouve à la colonne 2
 
-            char c = grille[i][j]; //enregistrement du type d'item dans la variable c
-            if(c==' ') continue; //si la case est vide, on continue de chercher dans la grille
+            int c = grille[i][j]; //enregistrement du type d'item dans la variable c
+            if(c==0) continue; //si la case est vide, on continue de chercher dans la grille
 
             if(grille[i][j]== c && grille[i-1][j]== c && grille[i-2][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i][j-1]== c && grille[i][j-2]== c && grille[i][j+1]== c && grille[i][j+2]== c){
-                resultatCx.ligne = i; //ligne où se trouve la case centrale de la croix
+                resultatCx.type = 4;  //type CROIX
+				resultatCx.ligne = i; //ligne où se trouve la case centrale de la croix
                 resultatCx.colonne = j; //colonne où se trouve la case centrale de la croix
 				resultatCx.taille = 5; //la croix fait 5 items par branche 
-				resultatCx.type = 4;  //type CROIX
                 return resultatCx;
             }
         }
