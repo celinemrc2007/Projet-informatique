@@ -7,6 +7,12 @@
 #define LARGEUR 9
 #define DUREE 120000
 int niveau=1;
+//variables globales 
+int curseurL = 0;
+int curseurC = 0;
+
+int selectionActive = 0;
+int selL, selC;
 
 void lancerNiveau(int xcurseur, int ycurseur, int temps_restant) {
 	xcurseur=LARGEUR/2;
