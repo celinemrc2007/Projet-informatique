@@ -7,7 +7,7 @@
 char grille[HAUTEUR][LARGEUR]; //variable globale
 
 void afficherNumeroNiveau(int niveau){ //afficher le numero du niveau (1 2 ou 3)
-    gotoxy(0, 1); //position ligne 1
+    gotoxy(0, 15); //position ligne 1
     printf("Niveau actuel : %d\n", niveau);
 } 
 
@@ -29,7 +29,7 @@ void afficherTempsrestant(int tempsrestant){ //afficher le temps restant pour ch
 }
 
 void afficherRegles(){
-    gotoxy(0, 3); //position ligne 3
+    gotoxy(0, 1); //position ligne 3
     printf("======= Regles du jeu =======\n");
     printf("Le but du jeu est d'eliminer le plus d'items possible lors d'un niveau. Il y a 3 niveaux par partie, pour chaque niveau, l'utilisateur doit repondre à un contrat lui indiquant le nombre d'items a eliminer et le temps imparti.\n");
     printf("Chaque niveau peut etre sauvegarde avec un pseudo utilisateur, afin d'y retourner plus tard.\n");
@@ -70,7 +70,7 @@ void afficherGrille(){
                         printf("@ "); break;
                     case 5: //magenta
                         text_color(FOREGROUND_RED | FOREGROUND_BLUE);
-                        printf("% "); break;
+                        printf("%% "); break;
                     default: 
                         text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                         printf("? "); break;
@@ -85,20 +85,46 @@ void afficherGrille(){
 
 
 
-void afficherCoupsRestants(int coups) //a refaire
-{
-    printf("Coups restants : %d\n", coups);
+void afficherCoupsRestants(int coups_restants){
+    // Barre d'affichage en haut
+    gotoxy(0, 0);
+    text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // blanc
+
+    printf("Coups restants : %d      ", coups_restants);
 }
 
+// index = valeur de l'item
+// 0 inutilisé
+// 1 = X, 2 = O, 3 = &, 4 = @, 5 = %
+
+void afficherItemsRestants(int itemsRestants[]){
+    gotoxy(0, 1); // ligne juste sous les coups
+    text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+    printf("Items restants : ");
+    // X (1)
+    text_color(FOREGROUND_RED);
+    printf("X : %d  ", itemRestants[1]);
     
-void afficherItemsRestants(int x, int o, int et, int at, int pourcent) //a refaire
-{
-    printf("Items restants :\n");
-    printf("X : %d\n", x);
-    printf("O : %d\n", o);
-    printf("& : %d\n", et);
-    printf("@ : %d\n", at);
-    printf("%% : %d\n", pourcent);
+    // O (2)
+    text_color(FOREGROUND_BLUE);
+    printf("O : %d  ", itemsRestants[2]);
+
+    // & (3)
+    text_color(FOREGROUND_GREEN);
+    printf("& : %d  ", itemsRestants[3]);
+
+    // @ (4)
+    text_color(FOREGROUND_RED | FOREGROUND_GREEN);
+    printf("@:%d  ", itemsRestants[4]);
+
+    // % (5)
+    text_color(FOREGROUND_RED | FOREGROUND_BLUE);
+    printf("%%:%d  ", itemsRestants[5]);
+
+    // retour au blanc
+    text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 }
+
 
 }
