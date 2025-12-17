@@ -1,47 +1,48 @@
 #include <stdio.h>
+
+#define HAUTEUR 10
+#define LARGEUR 9
+
 //variables globales 
-int curseurL = 0;
-int curseurC = 0;
+int curseurL = HAUTEUR/2;
+int curseurC = LARGEUR/2;
 
-int selectionActive = 0;
-int selL, selC;
+int ligneCurseur() { return curseurL; }
+int colonneCurseur() { return curseurC; }
 
-void selectionItem(char touche){
-    int l2 = curseurL;
-    int c2 = curseurC;
-
-    // Si aucune sélection active → on sélectionne
-    if (!selectionActive && touche == ' '){ // espace ou shift selon ton choix
-        selectionActive = 1;
-        selL = curseurL;
-        selC = curseurC;
-        return;
+// Retourne true si le joueur essaie d'échanger 2 items
+bool selectionItem (char touche, int *l1, int *c1, int *l2, int *c2) {
+    *l1 = curseurL;
+    *c1 = curseurC;
+    *l2 = curseurL;
+    *c2 = curseurC;
+    switch(touche){
+        case 'Q': // gauche
+            if (curseurC > 0) {
+                *c2--;
+                return true;
+            }
+            break;
+        case 'S': // droite
+            if (curseurC < LARGEUR - 1) {
+                *c2++;
+                return true;
+            }
+            break;
+        case 'Z': // haut
+            if (curseurL > 0) {
+                *l2--;
+                return true;
+            }
+            break;
+        case 'W': // bas
+            if (curseurL < HAUTEUR - 1) {               
+                *l2++;
+                return true;
+            }
+            break;
     }
-
-    // Si un item est déjà sélectionné
-    if (selectionActive){
-        switch(touche){
-            case 'q': c2--; break; // gauche
-            case 's': c2++; break; // droite
-            case 'z': l2--; break; // haut
-            case 'w': l2++; break; // bas
-            default: return;
-        }
-
-        // Vérification limites
-        if (l2 < 0 || l2 >= HAUTEUR || c2 < 0 || c2 >= LARGEUR){
-            selectionActive = 0;
-            return;
-        }
-
-        // Tentative de permutation
-        if (permuterSiValide(selL, selC, l2, c2)){
-            // permutation valide → coups -1, élimination ensuite
-        }
-
-        // Dans tous les cas, on annule la sélection
-        selectionActive = 0;
-    }
+    return false;
 }
 
 
