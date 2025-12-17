@@ -40,6 +40,17 @@ int verifierAbsencesFiguresInitiales () {
 		return 1;
 	}
 }
+
+melangerItems(){
+	int *x, int *y, int temp;
+	srand(time(NULL));
+	rand()
+	temp=x;
+	x=y;
+	y=temp;
+
+}
+
 void genererItems(char grille[10][9])
 {
     char items[5] = {'X','O','&','@','%'};
