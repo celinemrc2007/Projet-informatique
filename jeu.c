@@ -128,7 +128,7 @@ void eliminerSuiteEnColonne(ResultatFigure resultatC) {
 	}	
 }
 
-ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
+ResultatFigure detecterCarre(){
     int i, j;
     ResultatFigure resultatCr = {0, -1, -1, 0, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
