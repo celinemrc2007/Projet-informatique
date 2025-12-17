@@ -357,26 +357,6 @@ int jeu (int temps_restant) {
 		gererEchecNiveau(vies);
 	}
 
-void malus(int *coups)
-{
-    *coups = *coups - 1;
-}
-
-void gererVictoirePartie(void)
-{
-    printf("VICTOIRE !\n");
-}
-
-void gererEchecPartie(void)
-{
-    printf("DEFAITE !\n");
-}
-
-void quitterProgramme(void)
-{
-    printf("Au revoir !\n");
-    exit(0);
-}
 
 int gererContrat(int *x, int *o, int *et, int *at, int *pourcent, char item, int taille)
 {
