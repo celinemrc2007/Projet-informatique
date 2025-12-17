@@ -61,6 +61,12 @@ void gererVictoirePartie(int *niveau)
     }
 }
 
+void gererEchecPartie(int *vies)
+{
+    printf("Vous avez perdu la partie.\n");
+    *vies = 3;
+}
+
 void gerePerteVies(int *nb_vies_restantes){
     if (*nb_vies_restantes > 0) {
         (*nb_vies_restantes)--; //utilisateur perd une vie s'il lui en reste
