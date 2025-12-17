@@ -20,12 +20,20 @@
 
 char grille[HAUTEUR][LARGEUR];		//Déclaration de la variable globale grille (matrice de taille HAUTEUR*LARGEUR) utilisé dans la majorité des sous-programme de ce module
 								  //Valeurs de 0 à 6 (5 items + malus) remplacés dans GenererItems par des symboles
+//variables globales 
+int curseurL = 0;
+int curseurC = 0;
+
+int selectionActive = 0;
+int selL, selC;
+
 typedef struct {
     int type;     //SUITE_LIGNE (1), SUITE_COLONNE (2), CARRE (3), CROIX (4), PAS_DE_FIGURE (0)
     int ligne;
     int colonne;
     int taille;
 } ResultatFigure; //structure à utiliser pour eliminer une figure
+
 
 void viderGrille() {
 	for (int i=0; i<HAUTEUR; i++) {
