@@ -42,6 +42,13 @@ void lancerNiveau(int xcurseur, int ycurseur, int temps_restant) {
 	}
 }
 
+void malus(int *temps_fin, int ligne, int colonne)
+{
+    if (grille[ligne][colonne] == 6) {
+        *temps_fin -= 10;
+    }
+}
+
 void gerePerteVies(int *nb_vies_restantes){
     if (*nb_vies_restantes > 0) {
         (*nb_vies_restantes)--; //utilisateur perd une vie s'il lui en reste
