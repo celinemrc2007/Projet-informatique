@@ -346,7 +346,7 @@ void genererItems(char grille[10][9])
 
     for (i = 0; i < 10; i++)
         for (j = 0; j < 9; j++)
-            grille[i][j] = items[rand() % 5];
+            grille[i][j] = items[rand() % 7];
 }
 
 void gererContrat(char item, int *x, int *o, int *et, int *at, int *pourcent)
