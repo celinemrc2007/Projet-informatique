@@ -337,27 +337,6 @@ int jeu (int temps_restant) {
 		gererEchecNiveau(vies);
 	}
 
-void genererItems(char grille[10][9])
-{
-    char items[5] = {'X','O','&','@','%'};
-    int i, j;
-
-    srand(time(NULL));
-
-    for (i = 0; i < 10; i++)
-        for (j = 0; j < 9; j++)
-            grille[i][j] = items[rand() % 7];
-}
-
-void gererContrat(char item, int *x, int *o, int *et, int *at, int *pourcent)
-{
-    if (item == 'X' && *x > 0) (*x)--;
-    if (item == 'O' && *o > 0) (*o)--;
-    if (item == '&' && *et > 0) (*et)--;
-    if (item == '@' && *at > 0) (*at)--;
-    if (item == '%' && *pourcent > 0) (*pourcent)--;
-}	
-
 void malus(int *coups)
 {
     *coups = *coups - 1;
