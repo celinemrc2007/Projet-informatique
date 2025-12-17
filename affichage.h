@@ -4,4 +4,4 @@ void afficherTempsrestant(int tempsrestant); //afficher le temps restant pour ch
 void afficherRegles(); //afficher les règles du jeu lorsque souhaité par l'utilisateur
 void afficherGrille (); //afficher la grille de jeu dans la hauteur et la largeur sont constantes
 void afficherCoupsRestants(int coups_restants); //afficher le nombre de coups restants à chaque moment 
-void afficherItemsRestants(int x, int o, int et, int at, int pourcent);
+void afficherItemsRestants(int itemsRestants[]) //afficher le nombre d'items restants à éliminer pour chque contrat
