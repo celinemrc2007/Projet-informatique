@@ -3,7 +3,7 @@
 #include <conio.h>
 #define HAUTEUR 10
 #define LARGEUR 9
-
+//X : 1                       O : 2                         & : 3                        @ : 4                  % : 5              malus : 6
 
 void afficherNumeroNiveau(int niveau){ //afficher le numero du niveau (1 2 ou 3)
     gotoxy(0, 1); //position ligne 1
@@ -35,21 +35,32 @@ void afficherRegles(){
     printf("A vous de jouer !\n");
 }
 
-void afficherCadre() {
+void afficherCadre(char grille[HAUTEUR][LARGEUR]) {
     gotoxy(0,0);
-    text_color(FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_GREEN);
+    text_color(FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_GREEN); //les # seront blancs
     
-    for (int y = 0; y <= HAUTEUR+1; y++) {
-        for (int x = 0; x <= LARGEUR+1; x++) {
+    for (int y = 0; y <= HAUTEUR+1; y++) { //boucle pour parcourir les lignes 
+        for (int x = 0; x <= LARGEUR+1; x++) { //boucle pour parcourir les colonnes
+            printf("%c ", grille[i][j]);
             if (y == 0 || y == HAUTEUR+1) printf("#");
             else if (x == 0 || x == LARGEUR+1) printf("#");
             else printf(" ");
         }
         printf("\n");
     }
-    
+    int item;
+    switch(item){
+        case 0 : printf(" ");
+        case 1 : printf("X"); 
+        case 2 : printf("O");
+        case 3 : printf("&");
+        case 4 : printf("@");
+        case 5 : printf("%");
+        break;
+    }
 }
-    
+
+
 void afficherCoupsRestants(int coups)
 {
     printf("Coups restants : %d\n", coups);
