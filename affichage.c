@@ -3,6 +3,16 @@
 #include <conio.h>
 #define HAUTEUR 10
 #define LARGEUR 9
+#define DUREE 120000
+#define PAS_DE_FIGURE 0
+#define SUITE_LIGNE 1
+#define SUITE_COLONNE 2
+#define CARRE 3
+#define CROIX 4
+#define TAILLE_CARRE 4
+#define TAILLE_CROIX 5
+#define TAILLE_BONUS_COUPS 5         //Ajout par nous
+#define TAILLE_BONUS_EXPLOSION 6     //Bonus imposé par la consigne
 //X : 1                       O : 2                         & : 3                        @ : 4                  % : 5              malus : 6
 char grille[HAUTEUR][LARGEUR]; //variable globale
 
@@ -125,7 +135,4 @@ void afficherItemsRestants(int itemsRestants[]){
 
     // retour au blanc
     text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-}
-
-
 }
