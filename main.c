@@ -2,10 +2,14 @@
 int menu() {
     int choix;
     text_color(FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_GREEN);
-    printf("\n1. Jouer");
-    printf("\n2. Regles du jeu");
-    printf("\n3. Quitter\n");
-    scanf("%d",&choix);
+    printf("===== MENU PRINCIPAL =====\n");
+    printf("1. Lire les regles\n");
+    printf("2. Nouvelle partie\n");
+    printf("3. Reprendre une partie\n");
+    printf("4. Quitter\n");
+    printf("Votre choix : ");
+    scanf("%d", &choix);
+
     return choix;
 }
 int main() {
