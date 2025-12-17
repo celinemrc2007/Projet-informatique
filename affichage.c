@@ -48,11 +48,13 @@ void afficherGrille (char grille[HAUTEUR][LARGEUR]){
     }
     printf("#################\n");
 
+    
 void afficherCoupsRestants(int coups)
 {
     printf("Coups restants : %d\n", coups);
 }
 
+    
 void afficherItemsRestants(int x, int o, int et, int at, int pourcent)
 {
     printf("Items restants :\n");
