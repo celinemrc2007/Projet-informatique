@@ -35,19 +35,20 @@ void afficherRegles(){
     printf("A vous de jouer !\n");
 }
 
-void afficherGrille (char grille[HAUTEUR][LARGEUR]){
-    int i, j;
-    printf("#################\n");
-    //boucle pour parcourir les colonnes
-    for(i=0; i<HAUTEUR; i++){
-        //boucle pour parcourir les lignes
-        for(j=0; j<LARGEUR; j++){
-            printf("%c ", grille[i][j]); //affichage de la grille
+void afficherCadre() {
+    gotoxy(0,0);
+    text_color(FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_GREEN);
+    
+    for (int y = 0; y <= HAUTEUR+1; y++) {
+        for (int x = 0; x <= LARGEUR+1; x++) {
+            if (y == 0 || y == HAUTEUR+1) printf("#");
+            else if (x == 0 || x == LARGEUR+1) printf("#");
+            else printf(" ");
         }
         printf("\n");
     }
-    printf("#################\n");
-
+    
+}
     
 void afficherCoupsRestants(int coups)
 {
