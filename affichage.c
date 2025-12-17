@@ -36,30 +36,53 @@ void afficherRegles(){
     printf("A vous de jouer !\n");
 }
 
-void afficherCadre() {
-    gotoxy(0,0);
-    text_color(FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_GREEN); //les # seront blancs
-    
-    for (int y = 0; y <= HAUTEUR+1; y++) { //boucle pour parcourir les lignes 
-        for (int x = 0; x <= LARGEUR+1; x++) { //boucle pour parcourir les colonnes
-            printf("%c ", grille[i][j]);
-            if (y == 0 || y == HAUTEUR+1) printf("#");
-            else if (x == 0 || x == LARGEUR+1) printf("#");
-            else printf(" ");
+void afficherGrille(){
+    int y, x;
+
+    gotoxy(0, 0);
+
+    for (y = 0; y < HAUTEUR + 2; y++) {
+        for (x = 0; x < LARGEUR + 2; x++) {
+
+            // Bordures
+            if (y == 0 || y == HAUTEUR + 1 || x == 0 || x == LARGEUR + 1) {
+                text_color(FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
+                printf("#");
+            }
+            //Intérieur : affichage de la grille
+            else {
+                int item = grille[y-1][x-1]; //la grille commence à partir de (1,1)
+
+                switch (item) {
+                    case 0: 
+                        printf("  "); break;
+                    case 1: //rouge
+                        text_color(FOREGROUND_RED);
+                        printf("X "); break;
+                    case 2: //bleu
+                        text_color(FOREGROUND_BLUE);
+                        printf("O "); break;
+                    case 3: //vert
+                        text_color(FOREGROUND_GREEN);
+                        printf("& "); break;
+                    case 4: //jaune
+                        text_color(FOREGROUND_RED | FOREGROUND_GREEN)
+                        printf("@ "); break;
+                    case 5: //magenta
+                        text_color(FOREGROUND_RED | FOREGROUND_BLUE);
+                        printf("%% "); break;
+                    default: 
+                        text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                        printf("? "); break;
+                }
+                //revenir au blanc après chaque case
+                text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+            }
         }
         printf("\n");
     }
-    int item;
-    switch(item){
-        case 0 : printf(" ");
-        case 1 : printf("X"); 
-        case 2 : printf("O");
-        case 3 : printf("&");
-        case 4 : printf("@");
-        case 5 : printf("%");
-        break;
-    }
 }
+
 
 
 void afficherCoupsRestants(int coups)
