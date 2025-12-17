@@ -85,13 +85,13 @@ void afficherGrille(){
 
 
 
-void afficherCoupsRestants(int coups)
+void afficherCoupsRestants(int coups) //a refaire
 {
     printf("Coups restants : %d\n", coups);
 }
 
     
-void afficherItemsRestants(int x, int o, int et, int at, int pourcent)
+void afficherItemsRestants(int x, int o, int et, int at, int pourcent) //a refaire
 {
     printf("Items restants :\n");
     printf("X : %d\n", x);
