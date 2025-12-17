@@ -1,5 +1,5 @@
 void viderGrille ();
-void assurerGrilleJouable ();
+//void assurerGrilleJouable ();
 int verifierAbsencesFiduresInitiales ();
 ResultatFigure detecterSuiteEnLigne();
 ResultatFigure detecterSuiteEnColonne();
