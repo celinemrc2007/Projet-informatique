@@ -286,7 +286,7 @@ void appliquerGravite () {
             }
             // Animation chute des items ligne par ligne
             afficherGrille(grille[HAUTEUR][LARGEUR]);
-            sleep(40);
+            Sleep(40);
         }
     }
 }
