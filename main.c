@@ -42,6 +42,9 @@ int main() {
             case 2 :
                     afficherRegles();
                     break;
+            case 4:
+                    quitterProgramme();
+                    break;
         }
     }while(choix!=3);
 
