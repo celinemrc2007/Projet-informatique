@@ -71,16 +71,17 @@ ResultatFigure detecterSuiteEnLigne(){
         for(j=1; j<LARGEUR; j++){
             if(grille[i][j]==grille[i][j-1] && grille[i][j] != 0){ //comparaison de deux cases consécutives
                 compteur++;
-    
-                if(compteur>=3){ //on a une suite valide si elle fait au moins 3 cases
+
+            } else {
+				if(compteur>=3){ //on a une suite valide si elle fait au moins 3 cases
 					resultatL.type = 0; //type PAS_DE_FIGURE
                     resultatL.ligne = i; //on veut le numero de la ligne où se trouve la suite
                     resultatL.colonne = j - compteur + 1;//on veut le numero de la première colonne où commence la suite
                     resultatL.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
                     return resultatL;
-                }
-            }
-            else compteur = 1; // reinitialisation
+				}
+				compteur = 1; // reinitialisation si les deux cases consécutives ne sont pas identiques
+			}	
         }
     }
     return resultatL; //aucune suite trouvée
@@ -105,14 +106,16 @@ ResultatFigure detecterSuiteEnColonne(){
             if(grille[i][j]==grille[i-1][j] && grille[i][j] != 0){ //comparaison de deux cases consécutives
                 compteur++;
 
-                if(compteur>=3){//on a une suite valide si elle fait au moins 3 cases
+            } else {
+				if(compteur>=3){//on a une suite valide si elle fait au moins 3 cases
 					resultatL.type = 2; //type SUITE_EN_COLONNE
                     resultatC.ligne = i-compteur + 1; //on veut le numero de la première ligne où commence la suite
                     resultatC.colonne = j;
                     resultatC.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
                     return resultatC;
                 }
-            }else compteur = 1; //reinitialisation si les deux cases consécutives ne sont pas identiques
+				compteur = 1; //reinitialisation si les deux cases consécutives ne sont pas identiques
+			}
         }
     }
     return resultatC; //aucune suite trouvée
@@ -292,7 +295,7 @@ void permuterItems(int l1, int c1, int l2, int c2){
 }
 
 int sontAdjacentes(int l1, int c1, int l2, int c2){ //verifier si les deux cases sont à côtés l'une de l'autre
-    return (abs(l1 - l2) + abs(c1 - c2)) == 1; //calcule de la valeur absolue de la difference entre les deux lignes (vaudrat 0 ou 1) et les deux colonnes (vaudrat 0 ou 1)
+    return (abs(l1 - l2) + abs(c1 - c2)) == 1; //calcule de la valeur absolue de la difference entre les deux lignes (vaudra 0 ou 1) et les deux colonnes (vaudra 0 ou 1)
 }
 
  int permuterSiValide(int l1, int c1, int l2, int c2){
