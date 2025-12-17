@@ -3,6 +3,11 @@
 #include <string.h>
 #include <time.h>
 #include <windows.h> 
+#include "affichage.h"
+#include "sauvegarde.h"
+#include "gestionClavier.h"
+#include "gestionNiveaux.h"
+#include "sauvegarde.h"
 
 //variables globales 
 int curseurL = 0;
