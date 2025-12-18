@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include "gestionClavier.h"
 #define HAUTEUR 10
 #define LARGEUR 9
 
