@@ -357,19 +357,13 @@ int sontAdjacentes(int l1, int c1, int l2, int c2){ //verifier si les deux cases
     return 0;
 }
 
-int gererContrat(int *x, int *o, int *et, int *at, int *pourcent, char item, int taille)
-{
-    if (item == 'X') *x -= taille;
-    if (item == 'O') *o -= taille;
-    if (item == '&') *et -= taille;
-    if (item == '@') *at -= taille;
-    if (item == '%') *pourcent -= taille;
-
-    if (*x <= 0 && *o <= 0 && *et <= 0 && *at <= 0 && *pourcent <= 0)
-        return 1;
-
-    return 0;
+int gererContrat() {
+   for int(i=1 ; i <= 5 ; i++) {
+        if (compteurs_contrat[i] > 0) return 0;
+    }
+    return 1;
 }
+
 
 
 int jeu (int temps_restant) {
