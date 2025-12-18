@@ -53,3 +53,57 @@ void gerePerteVies(int *vies_restantes){
         (*nb_vies_restantes)--; //utilisateur perd une vie s'il lui en reste
     }
 }
+void gereVictoireNiveau(){
+	printf("###############################################\n");
+	printf("#                                             #\n");
+	printf("     ! Bravo vous avez gagne le niveau !       \n");
+	printf("#                                             #\n");
+	printf("###############################################\n");	
+	Sleep(5000); //affichage du message pendant 5 sec
+}
+void gererEchecNiveau(){
+	printf("###############################################\n");
+	printf("#                                             #\n");
+	printf("      Dommage vous avez perdu le niveau :(     \n");
+	printf("#                                             #\n");
+	printf("###############################################\n");
+	Sleep(5000);
+}
+void gererVictoirePartie(int niveau){
+    if (niveau == 3){
+        system("cls");
+        printf("\n\n");
+        printf("#############################################\n");
+        printf("#                                           #\n");
+        printf("#   FELICITATIONS !                         #\n");
+        printf("#   Vous avez termine le JEU !              #\n");
+        printf("#                                           #\n");
+        printf("#############################################\n");
+        printf("\nRetour au menu principal...\n");
+        Sleep(10000); // pause 10 secondes
+        menu(); // retour au menu
+    }
+}
+void gererEchecPartie(){
+    int vies = gererPerteVie();
+    if (vies > 0){
+        char choix;
+        printf("Echec de la partie. Il vous reste %d vie(s).\n", vies);
+        printf("Relancer le niveau ? (O/N)\n");
+        choix = getch();
+        if (choix == 'O' || choix == 'o'){
+            lancerNiveau();
+        }
+        else{
+            menu();
+        }
+    }
+    else{
+        printf("GAME OVER !\n");
+        Sleep(3000);
+        menu();
+void gerePerteVies(int *vies_restantes){
+    if (*nb_vies_restantes > 0) {
+        (*nb_vies_restantes)--; //utilisateur perd une vie s'il lui en reste
+    }
+}
