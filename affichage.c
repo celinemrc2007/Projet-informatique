@@ -1,25 +1,38 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <windows.h>
 #include <conio.h>
+#include "affichage.h"
+#include "gestionClavier.h"
 #define HAUTEUR 10
 #define LARGEUR 9
 #define COLONNE_INFO (LARGEUR * 2 + 10)
 
-//X : 1                       O : 2                         & : 3                        @ : 4                  % : 5              malus : 6
-char grille[HAUTEUR][LARGEUR]; //variable globale
+void gotoxy(int x, int y)
+{
+    printf("\x1B[%d;%dH", y, x);
+}
+
+void text_color(int color)
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
+//X : 1                       O : 2                         & : 3                        @ : 4                  % : 5             
 
 void afficherNumeroNiveau(int niveau){ //afficher le numero du niveau (1 2 ou 3)
-    gotoxy(5, HAUTEUR + 2); //position ligne 1
+    gotoxy(5, HAUTEUR + 5); //position ligne 1
     printf("Niveau actuel : %d\n", niveau);
 } 
 
 
-void afficherNombredeVies(int nb_vies_restantes){
+void afficherNombredeVies(int vies_restantes){
     gotoxy(COLONNE_INFO, 11);
-    printf("Vies restantes : %d\n", nb_vies_restantes);
+    printf("Vies restantes : %d\n", vies_restantes);
 }
 
-void afficherTempsrestant(int tempsrestant){ //afficher le temps restant pour chaque niveau en seconde
+void afficherTempsRestant(int tempsrestant){ //afficher le temps restant pour chaque niveau en seconde
     while(tempsrestant>=0){
         int minutes = tempsrestant / 60;
         int secondes = tempsrestant %60;
@@ -39,7 +52,7 @@ void afficherRegles(){
     printf("A vous de jouer !\n");
 }
 
-void afficherGrille(){
+void afficherGrille(int grille[HAUTEUR][LARGEUR]){
     int y, x;
 
     gotoxy(0, 0);
@@ -50,7 +63,7 @@ void afficherGrille(){
             // Bordures
             if (y == 0 || y == HAUTEUR + 1 || x == 0 || x == LARGEUR + 1) {
                 text_color(FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
-                printf("#");
+                printf("# ");
             }
             //Intérieur : affichage de la grille
             else {
@@ -69,11 +82,11 @@ void afficherGrille(){
                         text_color(FOREGROUND_GREEN);
                         printf("& "); break;
                     case 4: //jaune
-                        text_color(FOREGROUND_RED | FOREGROUND_GREEN)
+                        text_color(FOREGROUND_RED | FOREGROUND_GREEN);
                         printf("@ "); break;
                     case 5: //magenta
                         text_color(FOREGROUND_RED | FOREGROUND_BLUE);
-                        printf("% "); break;
+                        printf("%% "); break;
                     default: 
                         text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                         printf("? "); break;
@@ -88,25 +101,25 @@ void afficherGrille(){
 
 
 
-void afficherCoupsRestants(int coups) //a refaire
+void afficherCoupsRestants(int coups_restants)
 {
     gotoxy(COLONNE_INFO, 9);
-    printf("Coups restants : %d\n", coups);
+    printf("Coups restants : %d\n", coups_restants);
 }
 
     
 void afficherItemsRestants(int compteur_contrats[]) {
     gotoxy(COLONNE_INFO, 0);
     printf("Contrat :");
-    gotoxy(colonne, 1);
+    gotoxy(COLONNE_INFO, 1);
     printf("X : %d\n", compteur_contrats[1]);
-    gotoxy(colonne, 2);
+    gotoxy(COLONNE_INFO, 2);
     printf("O : %d\n", compteur_contrats[2]);
-    gotoxy(colonne, 3);
+    gotoxy(COLONNE_INFO, 3);
     printf("& : %d\n", compteur_contrats[3]);
-    gotoxy(colonne, 4);
+    gotoxy(COLONNE_INFO, 4);
     printf("@ : %d\n", compteur_contrats[4]);
-    gotoxy(colonne, 5);
+    gotoxy(COLONNE_INFO, 5);
     printf("%% : %d\n", compteur_contrats[5]);
 }
 
