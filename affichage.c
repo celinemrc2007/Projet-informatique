@@ -47,6 +47,9 @@ void afficherRegles(){
     gotoxy(0, 1); //position ligne 3
     printf("======= Regles du jeu =======\n");
     printf("Le but du jeu est d'eliminer le plus d'items possible lors d'un niveau. Il y a 3 niveaux par partie, pour chaque niveau, l'utilisateur doit repondre à un contrat lui indiquant le nombre d'items a eliminer et le temps imparti.\n");
+    printf("Pour vous deplacer dans la grille de jeu, utilisez les touches suivantes : \n");
+    printf("q : droite, s : gauche, w : bas, z : haut.\n");
+    printf("Appuyez sur shift pour selectionner un item.\n");
     printf("Chaque niveau peut etre sauvegarde avec un pseudo utilisateur, afin d'y retourner plus tard.\n");
     printf("A vous de jouer !\n");
 }
