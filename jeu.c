@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <windows.h> 
+#include <windows.h>
+#include <conio.h> 
 #include "jeu.h"
 #include "affichage.h"
 #include "sauvegarde.h"
 #include "gestionClavier.h"
-#include "gestionNiveaux.h"
-#include "sauvegarde.h"
+#include "gestionNiveau.h"
 
 #define HAUTEUR 10
 #define LARGEUR 9
@@ -23,9 +23,11 @@
 #define TAILLE_BONUS_COUPS 5         //Ajout par nous
 #define TAILLE_BONUS_EXPLOSION 6     //Bonus imposé par la consigne
 
-char grille[HAUTEUR][LARGEUR];      //Déclaration de la variable globale grille (matrice de taille HAUTEUR*LARGEUR) utilisé dans la majorité des sous-programme de ce module
+int grille[HAUTEUR][LARGEUR];      //Déclaration de la variable globale grille (matrice de taille HAUTEUR*LARGEUR) utilisé dans la majorité des sous-programme de ce module
                                     //Valeurs de 0 à 5 (Vide + 5 items)
 int compteurs_contrat[7];
+int temps_restant;
+int coups_restants;
 
 typedef struct {
     int type;     //SUITE_LIGNE (1), SUITE_COLONNE (2), CARRE (3), CROIX (4), PAS_DE_FIGURE (0)
@@ -40,14 +42,6 @@ void viderGrille() {
             grille[i][j] = 0;
         }
     }
-}
-
-int verifierAbsencesFiguresInitiales () {
-    ResultatFigure fig = detecterFigure();
-    if(fig.type != PAS_DE_FIGURE) {
-        return 1;
-    }
-    return 0; 
 }
 
 void genererItems()
@@ -71,7 +65,7 @@ void viderCase(int i, int j) {
 
 int gererContrat()
 {
-    for int(i=1 ; i <= 5 ; i++) {
+    for (int i=1 ; i <= 5 ; i++) {
         if (compteurs_contrat[i] > 0) return 0;
     }
     return 1;
@@ -107,13 +101,13 @@ void eliminerSuiteEnLigne(ResultatFigure resultatL) {
     if(resultatL.taille >= 6) {
         // On élimine tous les item identiques
         int item = grille[resultatL.ligne][resultatL.colonne];
-        for (i = 0; i < HAUTEUR; i++) {
-            for (j = 0; j < LARGEUR; j++) {
+        for (int i = 0; i < HAUTEUR; i++) {
+            for (int j = 0; j < LARGEUR; j++) {
                 if (grille[i][j] == item) viderCase(i, j);
             }
         }
     } else {
-        for (int i=0; i<taille; i++) {                      
+        for (int i=0; i<resultatL.taille; i++) {                      
             viderCase (resultatL.ligne, resultatL.colonne); //Parcourir les cases de la suite de gauche à droite
         }
     }
@@ -151,15 +145,16 @@ void eliminerSuiteEnColonne(ResultatFigure resultatC) {
     if(resultatC.taille >= 6) {
         // On élimine tous les item identiques
         int item = grille[resultatC.ligne][resultatC.colonne];
-        for (i = 0; i < HAUTEUR; i++) {
-            for (j = 0; j < LARGEUR; j++) {
+        for (int i = 0; i < HAUTEUR; i++) {
+            for (int j = 0; j < LARGEUR; j++) {
                 if (grille[i][j] == item) viderCase(i, j);
             }
         }
     } else {
-    for (int i=0; i<taille; i++) {
-        viderCase(resultatC.ligne, resultatC.colonne); //Parcourir les cases de la suite de haut en bas et affecter 0 à chacune de ces cases
-    }   
+        for (int i=0; i<resultatC.taille; i++) {
+            viderCase(resultatC.ligne, resultatC.colonne); //Parcourir les cases de la suite de haut en bas et affecter 0 à chacune de ces cases
+        }   
+    }
 }
 
 ResultatFigure detecterCarre(){
@@ -275,13 +270,18 @@ void eliminerFigure (ResultatFigure resultatglobal) {            //Elimine la fo
     case 4 : eliminerCroix (resultatglobal); //type CROIX
         break;
     }
-    if (item >= 0 && item <= 6) {
-        itemsRestants[item] --;
+}
+
+int verifierAbsencesFiguresInitiales () {
+    ResultatFigure fig = detecterFigure();
+    if(fig.type != PAS_DE_FIGURE) {
+        return 1;
     }
+    return 0; 
 }
 
 bool ligneNonPleine(int ligne) {
-    for (j=0 ; j<LARGEUR ; j++) {
+    for (int j=0 ; j<LARGEUR ; j++) {
         if (grille[ligne][j] == 0) return true;
     }
     return false;
@@ -303,7 +303,7 @@ void appliquerGravite () {
                 }
             }
             // Animation chute des items ligne par ligne
-            afficherGrille(grille[HAUTEUR][LARGEUR]);
+            afficherGrille(grille);
             Sleep(40);
         }
     }
@@ -313,8 +313,15 @@ void assurerGrilleJouable () {
     
 }
 
+void permuterItems(int l1, int c1, int l2, int c2){
+    //permutation temporaire
+    char temp = grille[l1][c1];
+    grille[l1][c1] = grille[l2][c2];
+    grille[l2][c2] = temp;
+}
+
 void melangerItems() {                                  //Echange les coordonnées de deux items choisis aléatoirement
-    int l1, int c1, int l2, int c2, int temp;
+    int l1, c1, l2, c2, temp;
     l1 = rand() % HAUTEUR;
     l2 = rand() % HAUTEUR;
     c1 = rand() % LARGEUR;
@@ -323,13 +330,6 @@ void melangerItems() {                                  //Echange les coordonné
     permuterItems(l1, c1, l2, c2);
 }
 
-
-void permuterItems(int l1, int c1, int l2, int c2){
-    //permutation temporaire
-    char temp = grille[l1][c1];
-    grille[l1][c1] = grille[l2][c2];
-    grille[l2][c2] = temp;
-}
 /*
 int sontAdjacentes(int l1, int c1, int l2, int c2){ //verifier si les deux cases sont à côtés l'une de l'autre
     return (abs(l1 - l2) + abs(c1 - c2)) == 1; //calcule de la valeur absolue de la difference entre les deux lignes (vaudra 0 ou 1) et les deux colonnes (vaudra 0 ou 1)
@@ -357,42 +357,46 @@ int sontAdjacentes(int l1, int c1, int l2, int c2){ //verifier si les deux cases
     return 0;
 }
 
-int gererContrat() {
-   for int(i=1 ; i <= 5 ; i++) {
-        if (compteurs_contrat[i] > 0) return 0;
-    }
-    return 1;
-}
-
-
-
-int jeu (int temps_restant) {
-    int type, int ligne, int colonne, int taille;
-    int touche_pressee;
+int jeu () {
+    char touche_pressee;
+    int vies_restantes = 3;
+    float temps_fin = clock() + DUREE;
 
     srand(time(NULL));
-     do {
-            printf("Il y a deja des combinaisons possibles. Melange en cours ...");
+    viderGrille();
+    genererItems();
+    assurerGrilleJouable();
+    afficherGrille(grille);
+    afficherNombredeVies(vies_restantes);
+    afficherCoupsRestants(coups_restants);
+    afficherItemsRestants(compteurs_contrat);
+    do {
+            //printf("Il y a deja des combinaisons possibles. Melange en cours ...");
             melangerItems();    
     } while (verifierAbsencesFiguresInitiales () == 1);  
     
     // Boucle principale du jeu
     do {
+        float temps_restant = temps_fin - clock();
+        afficherTempsRestant(temps_restant);
         touche_pressee = 0;
         if (_kbhit()) {
             touche_pressee = _getch();
-            afficherGrille(grille[HAUTEUR][LARGEUR]);
+            afficherGrille(grille);
         }
         deplacementTouches(touche_pressee);
         int l1, c1, l2, c2;
-        if (selectionItems(touche_pressee, &l1, &c1, &l2, &c2)) {
+        if (selectionItem(touche_pressee, &l1, &c1, &l2, &c2)) {
             if (permuterSiValide(l1, c1, l2, c2)) {
                 ResultatFigure fig; //variable qui contiendra le retour de la fonction detecterFigure
                 fig = detecterFigure();
+                coups_restants--;
+                afficherCoupsRestants(coups_restants);
                 do {
                     eliminerFigure(fig);
+                    afficherItemsRestants(compteurs_contrat);
                     appliquerGravite();
-                    fig = detecterFigure()
+                    fig = detecterFigure();
                 }
                 while (fig.type != PAS_DE_FIGURE);
             } else {
@@ -400,12 +404,12 @@ int jeu (int temps_restant) {
             }
         }
         
-        if (gererContrat==1) {
-            gererVictoireNiveau(duree, temps_restant);
+        if (gererContrat()==1) {
+            gererVictoireNiveau();
         }
-        if (temps_restant==0&&gererContrat!=1) {
-            gererPerteVies(vies);
-            gererEchecNiveau(vies);
+        if (((temps_restant==0)||(coups_restants<=0))&&(gererContrat()!=1)) {
+            gererEchecNiveau(&vies_restantes);
+            afficherNombredeVies(vies_restantes);
         }
     }
     while(false);    
