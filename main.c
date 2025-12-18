@@ -1,24 +1,26 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <conio.h>
 #include <windows.h> 
 #include "affichage.h"
 #include "sauvegarde.h"
 #include "gestionClavier.h"
-#include "gestionNiveaux.h"
+#include "gestionNiveau.h"
 #include "sauvegarde.h"
+#include "jeu.h"
 
-//variables globales 
-int curseurL = 0;
-int curseurC = 0;
+void clrscr(void)
+{
+    printf("\x1B[2J");
+}
 
-int selectionActive = 0;
-int selL, selC;
 //Afficher le menu
 int menu() {
     int choix;
-    text_color(FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_GREEN);
+    //text_color(FOREGROUND_BLUE|FOREGROUND_RED|FOREGROUND_GREEN);
     printf("===== MENU PRINCIPAL =====\n");
     printf("1. Lire les regles du jeu\n");
     printf("2. Commencer une nouvelle partie\n");
@@ -29,13 +31,6 @@ int menu() {
 
     return choix;
 }
-
-void quitterProgramme(void)
-{
-    printf("\nMerci d'avoir joue. A bientot !\n");
-    exit(0);
-}
-
 int main() {
     int choix;
     // initialisation du générateur pseudo-aléatoire
@@ -45,21 +40,17 @@ int main() {
         //gestion du menu
         choix=menu();
         switch(choix){
-            case 1 : /*lancement d'une partie*/
+            case 2 : /*lancement d'une partie*/
                     //hide_cursor();
                     clrscr();
-                    jouer();
+                    jeu();
                     //show_cursor();
                     break;
-            case 2 :
+            case 1 :
                     afficherRegles();
-                    break;
-            case 4:
-                    quitterProgramme();
                     break;
         }
     }while(choix!=3);
 
     return 0;
 }
-
