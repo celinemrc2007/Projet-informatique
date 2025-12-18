@@ -17,25 +17,25 @@ bool selectionItem (char touche, int *l1, int *c1, int *l2, int *c2) {
     *l2 = curseurL;
     *c2 = curseurC;
     switch(touche){
-        case 'Q': // gauche
+        case 'q': // gauche
             if (curseurC > 0) {
                 *c2--;
                 return true;
             }
             break;
-        case 'S': // droite
+        case 's': // droite
             if (curseurC < LARGEUR - 1) {
                 *c2++;
                 return true;
             }
             break;
-        case 'Z': // haut
+        case 'z': // haut
             if (curseurL > 0) {
                 *l2--;
                 return true;
             }
             break;
-        case 'W': // bas
+        case 'w': // bas
             if (curseurL < HAUTEUR - 1) {               
                 *l2++;
                 return true;
