@@ -1,5 +1,8 @@
 #include <stdio.h>
-#include "gestionClavier.h"
+#include <conio.h>
+#include <windows.h>
+#include <stdlib.h>
+
 #define HAUTEUR 10
 #define LARGEUR 9
 
@@ -17,25 +20,25 @@ bool selectionItem (char touche, int *l1, int *c1, int *l2, int *c2) {
     *l2 = curseurL;
     *c2 = curseurC;
     switch(touche){
-        case 'q': // gauche
+        case 'Q': // gauche
             if (curseurC > 0) {
                 *c2--;
                 return true;
             }
             break;
-        case 's': // droite
+        case 'S': // droite
             if (curseurC < LARGEUR - 1) {
                 *c2++;
                 return true;
             }
             break;
-        case 'z': // haut
+        case 'Z': // haut
             if (curseurL > 0) {
                 *l2--;
                 return true;
             }
             break;
-        case 'w': // bas
+        case 'W': // bas
             if (curseurL < HAUTEUR - 1) {               
                 *l2++;
                 return true;
