@@ -4,6 +4,12 @@
 #include <time.h>
 #include <windows.h> 
 #include "jeu.h"
+#include "affichage.h"
+#include "sauvegarde.h"
+#include "gestionClavier.h"
+#include "gestionNiveaux.h"
+#include "sauvegarde.h"
+
 #define HAUTEUR 10
 #define LARGEUR 9
 #define DUREE 120000
@@ -18,7 +24,7 @@
 #define TAILLE_BONUS_EXPLOSION 6     //Bonus imposé par la consigne
 
 char grille[HAUTEUR][LARGEUR];      //Déclaration de la variable globale grille (matrice de taille HAUTEUR*LARGEUR) utilisé dans la majorité des sous-programme de ce module
-                                    //Valeurs de 0 à 6 (5 items + malus)
+                                    //Valeurs de 0 à 5 (Vide + 5 items)
 int compteurs_contrat[7];
 
 typedef struct {
@@ -37,9 +43,11 @@ void viderGrille() {
 }
 
 int verifierAbsencesFiguresInitiales () {
-    if(detecterFigure() != PAS_DE_FIGURE) {
+    ResultatFigure fig = detecterFigure();
+    if(fig.type != PAS_DE_FIGURE) {
         return 1;
     }
+    return 0; 
 }
 
 void genererItems()
@@ -49,7 +57,7 @@ void genererItems()
 
     for (i = 0; i < HAUTEUR; i++) {
         for (j = 0; j < LARGEUR; j++) {
-            grille[i][j] = 1 + (rand() % 6);
+            grille[i][j] = 1 + (rand() % 5);
         }
     }
 }
@@ -57,17 +65,16 @@ void genererItems()
 // Vider la case et mettre à jour les compteurs pour la gestion du contrat
 void viderCase(int i, int j) {
     int item = grille[i][j];
-    compteurs_contrat[item]--;
+    if (compteurs_contrat[item] > 0) compteurs_contrat[item]--;
     grille[i][j] = 0;
 }
 
-void gererContrat(char item, int *x, int *o, int *et, int *at, int *pourcent)
+int gererContrat()
 {
-    if (item == 'X' && *x > 0) (*x)--;
-    if (item == 'O' && *o > 0) (*o)--;
-    if (item == '&' && *et > 0) (*et)--;
-    if (item == '@' && *at > 0) (*at)--;
-    if (item == '%' && *pourcent > 0) (*pourcent)--;
+    for int(i=1 ; i <= 5 ; i++) {
+        if (compteurs_contrat[i] > 0) return 0;
+    }
+    return 1;
 }   
 
 ResultatFigure detecterSuiteEnLigne(){
