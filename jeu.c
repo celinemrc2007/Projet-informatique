@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <windows.h> 
-
+#include "jeu.h"
 #define HAUTEUR 10
 #define LARGEUR 9
 #define DUREE 120000
