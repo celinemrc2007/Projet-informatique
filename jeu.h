@@ -1,23 +1,11 @@
+
 void viderGrille ();
-//void assurerGrilleJouable ();
+void assurerGrilleJouable ();
 int verifierAbsencesFiduresInitiales ();
-ResultatFigure detecterSuiteEnLigne();
-ResultatFigure detecterSuiteEnColonne();
-ResultatFigure detecterCroix();
-ResultatFigure detecterCarre();
-ResultatFigure detecterFigure();
-void eliminerSuiteEnLigne(int ligne, int colonne, int taille);
-void eliminerSuiteEnColonne(int ligne, int colonne, int taille);
-void eliminerCarre (int ligne, int colonne);
-void eliminerCroix (int ligne, int colonne);
-void eliminerFigure (int type, int ligne, int colonne, int taille);
 void appliquerGravite ();
 void melangerItems ();
-int jeu (int temps_restant);
-void genererItems(void);
-void gererContrat(char item, int *x, int *o, int *et, int *at, int *pourcent);
-void malus(int *coups);
-void gererVictoirePartie(void);
-void gererEchecPartie(void);
-void quitterProgramme(void);
-int gererContrat(int *cX, int *cO, int *cE, int *cA, int *cP, int item, int taille);
+int jeu ();
+void genererItems();
+int gererContrat();
+
+
