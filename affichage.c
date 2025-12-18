@@ -1,5 +1,5 @@
 #include "affichage.h"
-##include <stdio.h>
+#include <stdio.h>
 #include <windows.h>
 #include <conio.h>
 #define HAUTEUR 10
