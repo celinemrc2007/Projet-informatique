@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <windows.h> 
+#include "gestionNiveau.h"
 #define HAUTEUR 10
 #define LARGEUR 9
 #define DUREE 120000
