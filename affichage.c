@@ -125,3 +125,152 @@ void afficherItemsRestants(int compteur_contrats[]) {
     printf("%% : %d\n", compteur_contrats[5]);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//*********************NOUVELLE VERSION****************************//
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <conio.h>
+
+#include "affichage.h"
+#include "gestionClavier.h"
+
+#define HAUTEUR 10
+#define LARGEUR 9
+#define COLONNE_INFO (LARGEUR * 2 + 6)
+
+/* =================== OUTILS CONSOLE =================== */
+
+void gotoxy(int x, int y) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD pos;
+    pos.X = x;
+    pos.Y = y;
+    SetConsoleCursorPosition(hConsole, pos);
+}
+
+void text_color(int color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
+/* =================== AFFICHAGES INFOS =================== */
+
+void afficherNumeroNiveau(int niveau) {
+    gotoxy(COLONNE_INFO, 7);
+    printf("Niveau : %d", niveau);
+}
+
+void afficherNombredeVies(int vies_restantes) {
+    gotoxy(COLONNE_INFO, 8);
+    printf("Vies : %d", vies_restantes);
+}
+
+void afficherCoupsRestants(int coups_restants) {
+    gotoxy(COLONNE_INFO, 9);
+    printf("Coups : %d", coups_restants);
+}
+
+void afficherTempsRestant(int temps_restant) {
+    int minutes = temps_restant / 60;
+    int secondes = temps_restant % 60;
+
+    gotoxy(COLONNE_INFO, 10);
+    printf("Temps : %02d:%02d", minutes, secondes);
+}
+
+/* =================== REGLES =================== */
+
+void afficherRegles() {
+    system("cls");
+    printf("======= REGLES DU JEU =======\n\n");
+    printf("Former des figures avec des permutations.\n");
+    printf("Touches :\n");
+    printf("  z : haut\n");
+    printf("  s : bas\n");
+    printf("  q : gauche\n");
+    printf("  d : droite\n");
+    printf("Espace : selection / permutation\n");
+    printf("\nAppuyez sur une touche pour revenir au menu...");
+    _getch();
+}
+
+/* =================== GRILLE =================== */
+
+void afficherGrille(int grille[HAUTEUR][LARGEUR]) {
+    int y, x;
+
+    gotoxy(0, 0);
+
+    /* Bordure haute */
+    for (x = 0; x < LARGEUR + 2; x++)
+        printf("# ");
+    printf("\n");
+
+    /* Corps de la grille */
+    for (y = 0; y < HAUTEUR; y++) {
+        printf("# ");
+        for (x = 0; x < LARGEUR; x++) {
+
+            switch (grille[y][x]) {
+                case 0: printf("  "); break;
+                case 1: text_color(FOREGROUND_RED); printf("X "); break;
+                case 2: text_color(FOREGROUND_BLUE); printf("O "); break;
+                case 3: text_color(FOREGROUND_GREEN); printf("& "); break;
+                case 4: text_color(FOREGROUND_RED | FOREGROUND_GREEN); printf("@ "); break;
+                case 5: text_color(FOREGROUND_RED | FOREGROUND_BLUE); printf("%% "); break;
+                default: printf("? "); break;
+            }
+            text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+        }
+        printf("#\n");
+    }
+
+    /* Bordure basse */
+    for (x = 0; x < LARGEUR + 2; x++)
+        printf("# ");
+    printf("\n");
+
+    /* Curseur */
+    int curseurX = colonneCurseur() * 2 + 2;
+    int curseurY = ligneCurseur() + 1;
+
+    gotoxy(curseurX - 1, curseurY);
+    printf(">");
+    gotoxy(curseurX + 1, curseurY);
+    printf("<");
+}
+
+/* =================== CONTRAT =================== */
+
+void afficherItemsRestants(int items[]) {
+    gotoxy(COLONNE_INFO, 0);
+    printf("Contrat :");
+    gotoxy(COLONNE_INFO, 1);
+    printf("X : %d", items[1]);
+    gotoxy(COLONNE_INFO, 2);
+    printf("O : %d", items[2]);
+    gotoxy(COLONNE_INFO, 3);
+    printf("& : %d", items[3]);
+    gotoxy(COLONNE_INFO, 4);
+    printf("@ : %d", items[4]);
+    gotoxy(COLONNE_INFO, 5);
+    printf("%% : %d", items[5]);
+}
