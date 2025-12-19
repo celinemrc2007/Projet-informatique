@@ -522,6 +522,7 @@ ResultatFigure detecterSuiteEnLigne(){
 }
 
 void eliminerSuiteEnLigne(ResultatFigure resultatL) {
+    if(resultatL.taille >= 5) coups_restants+=5;
     if(resultatL.taille >= 6) {
         // On élimine tous les item identiques
         int item = grille[resultatL.ligne][resultatL.colonne];
@@ -573,6 +574,7 @@ ResultatFigure detecterSuiteEnColonne(){
 
 
 void eliminerSuiteEnColonne(ResultatFigure resultatC) { 
+    if(resultatC.taille >= 5) coups_restants+=5;
     if(resultatC.taille >= 6) {
         // On élimine tous les item identiques
         int item = grille[resultatC.ligne][resultatC.colonne];
@@ -823,9 +825,10 @@ int jeu(void) {
     assurerAbsencesFiguresInitiales ();
     assurerGrilleJouable();
     
-    while (coups_restants > 0 && temps_restant > 0) {
+    while (coups_restants > 0) {
 
         temps_restant = DUREE - (clock() - debut) / CLOCKS_PER_SEC;
+        if (temps_restant <= 0) return 2;
 
         afficherGrille(grille);
         afficherCoupsRestants(coups_restants);
@@ -857,11 +860,11 @@ int jeu(void) {
             }
         }
 
-        if (gererContrat())
+        if (gererContrat()) {
+            afficherItemsRestants (compteurs_contrat);
             return 1;
-
+        }
         Sleep(30);
     }
-
-    return 0;
+    return 3;
 }
