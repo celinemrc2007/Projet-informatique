@@ -109,13 +109,13 @@ void gererEchecPartie(int *vies_restantes){
 
 
 void gererBonusNiveau3(ResultatFigure fig){ //gestion des bonus apparaissant au niveau 3
-    if (niveau == 3 &&fig.taille >=5){
+    if (niveau == 3 &&fig.taille >=5){ //le bonus n'exite qu'au niveau 3 et la figure doit contenir  moins 5 éléments
 
-        // Bonus coups si assemblage de 5 ou plus
+        // Bonus coups restants si assemblage de 5 ou plus
         if (fig.taille >= 5){
             coups_restants += 5;
 
-            // Sécurité 
+            // Sécurité, si le nombre de coups dépasse 99, on le plafonne à 99
             if (coups_restants > 99)
                 coups_restants = 99;
         }
