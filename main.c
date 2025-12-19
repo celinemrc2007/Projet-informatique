@@ -10,7 +10,7 @@
 #include "gestionClavier.h"
 #include "gestionNiveau.h"
 #include "sauvegarde.h"
-#include "jeu.h"
+#include "jouer.h"
 
 void clrscr(void)
 {
@@ -49,8 +49,24 @@ int main() {
             case 1 :
                     afficherRegles();
                     break;
+            case 3 : {
+                char pseudo[50];
+                int niveau, vies;
+
+                printf("Entrez votre pseudo : ");
+                scanf("%s", pseudo);
+
+                if (chargerPartie(pseudo, &niveau, &vies)) {
+                    printf("Sauvegarde chargee ! Niveau %d, Vies %d\n", niveau, vies);
+                    lancerNiveau(niveau, vies);
+                } else {
+                    printf("Aucune sauvegarde pour ce pseudo.\n");
+                    Sleep(1500);
+                }
+                break;
+            }
         }
-    }while(choix!=3);
+    }while(choix!=4);
 
     return 0;
 }
