@@ -12,7 +12,7 @@
 
 #define HAUTEUR 10
 #define LARGEUR 9
-#define DUREE 120000
+#define DUREE 120
 #define PAS_DE_FIGURE 0
 #define SUITE_LIGNE 1
 #define SUITE_COLONNE 2
@@ -360,7 +360,10 @@ int sontAdjacentes(int l1, int c1, int l2, int c2){ //verifier si les deux cases
 int jeu () {
     char touche_pressee;
     int vies_restantes = 3;
+    int coups_restants = 25;
     float temps_fin = clock() + DUREE;
+    int x = LARGEUR / 2;
+    int y = HAUTEUR / 2;
 
     srand(time(NULL));
     viderGrille();
