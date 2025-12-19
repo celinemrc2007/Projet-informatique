@@ -217,7 +217,7 @@ void afficherGrille(int grille[HAUTEUR][LARGEUR]) {
 
             switch (grille[y][x]) {
                 case 0: printf("  "); break;
-                case 1: text_color(FOREGROUND_RED); printf("X "); break;
+                case 1: text_color(FOREGROUND_GREEN | FOREGROUND_BLUE); printf("X "); break;
                 case 2: text_color(FOREGROUND_BLUE); printf("O "); break;
                 case 3: text_color(FOREGROUND_GREEN); printf("& "); break;
                 case 4: text_color(FOREGROUND_RED | FOREGROUND_GREEN); printf("@ "); break;
