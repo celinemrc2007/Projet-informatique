@@ -1,81 +1,77 @@
-#include <stdio.h>
-#include <conio.h>
-#include <windows.h>
-#include <stdlib.h>
+// #include <stdio.h>
+// #include <conio.h>
+// #include <windows.h>
+// #include <stdlib.h>
 
-#define HAUTEUR 10
-#define LARGEUR 9
+// #define HAUTEUR 10
+// #define LARGEUR 9
 
-//variables globales 
-int curseurL = HAUTEUR/2;
-int curseurC = LARGEUR/2;
+// //variables globales 
+// int curseurL = HAUTEUR/2;
+// int curseurC = LARGEUR/2;
 
-int ligneCurseur() { return curseurL; }
-int colonneCurseur() { return curseurC; }
+// int ligneCurseur() { return curseurL; }
+// int colonneCurseur() { return curseurC; }
 
 // Retourne true si le joueur essaie d'échanger 2 items
-bool selectionItem (char touche, int *l1, int *c1, int *l2, int *c2) {
-    *l1 = curseurL;
-    *c1 = curseurC;
-    *l2 = curseurL;
-    *c2 = curseurC;
-    switch(touche){
-        case 'Q': // gauche
-            if (curseurC > 0) {
-                *c2--;
-                return true;
-            }
-            break;
-        case 'S': // droite
-            if (curseurC < LARGEUR - 1) {
-                *c2++;
-                return true;
-            }
-            break;
-        case 'Z': // haut
-            if (curseurL > 0) {
-                *l2--;
-                return true;
-            }
-            break;
-        case 'W': // bas
-            if (curseurL < HAUTEUR - 1) {               
-                *l2++;
-                return true;
-            }
-            break;
-    }
-    return false;
-}
+// bool selectionItem (char touche, int *l1, int *c1, int *l2, int *c2) {
+//     *l1 = curseurL;
+//     *c1 = curseurC;
+//     *l2 = curseurL;
+//     *c2 = curseurC;
+//     switch(touche){
+//         case 'Q': // gauche
+//             if (curseurC > 0) {
+//                 *c2--;
+//                 return true;
+//             }
+//             break;
+//         case 'S': // droite
+//             if (curseurC < LARGEUR - 1) {
+//                 *c2++;
+//                 return true;
+//             }
+//             break;
+//         case 'Z': // haut
+//             if (curseurL > 0) {
+//                 *l2--;
+//                 return true;
+//             }
+//             break;
+//         case 'W': // bas
+//             if (curseurL < HAUTEUR - 1) {               
+//                 *l2++;
+//                 return true;
+//             }
+//             break;
+//     }
+//     return false;
+// }
 
 
-void deplacementTouches(char touche){
-    switch(touche){
-        case 'q': // gauche
-            if (curseurC > 0)
-                curseurC--;
-            break;
+// void deplacementTouches(char touche){
+//     switch(touche){
+//         case 'q': // gauche
+//             if (curseurC > 0)
+//                 curseurC--;
+//             break;
 
-        case 's': // droite
-            if (curseurC < LARGEUR - 1)
-                curseurC++;
-            break;
+//         case 's': // droite
+//             if (curseurC < LARGEUR - 1)
+//                 curseurC++;
+//             break;
 
-        case 'z': // haut
-            if (curseurL > 0)
-                curseurL--;
-            break;
+//         case 'z': // haut
+//             if (curseurL > 0)
+//                 curseurL--;
+//             break;
 
-        case 'w': // bas
-            if (curseurL < HAUTEUR - 1)
-                curseurL++;
-            break;
-    }
-}
-
-
-
-
+//         case 'w': // bas
+//             if (curseurL < HAUTEUR - 1)
+//                 curseurL++;
+//             break;
+//     }
+// }
 
 //*********************NOUVELLE VERSION****************************//
 #include <stdio.h>
@@ -112,46 +108,80 @@ int colonneCurseur(void) {
  * l1,c1 : position initiale
  * l2,c2 : position cible
  */
-bool selectionItem(char touche, int *l1, int *c1, int *l2, int *c2)
-{
+// bool selectionItem(char touche, int *l1, int *c1, int *l2, int *c2)
+// {
+//     *l1 = curseurL;
+//     *c1 = curseurC;
+//     *l2 = curseurL;
+//     *c2 = curseurC;
+
+//     switch (touche) {
+//         case 'q': // gauche
+//             if (curseurC > 0) {
+//                 (*c2)--;
+//                 return true;
+//             }
+//             break;
+
+//         case 's': // droite
+//             if (curseurC < LARGEUR - 1) {
+//                 (*c2)++;
+//                 return true;
+//             }
+//             break;
+
+//         case 'z': // haut
+//             if (curseurL > 0) {
+//                 (*l2)--;
+//                 return true;
+//             }
+//             break;
+
+//         case 'w': // bas
+//             if (curseurL < HAUTEUR - 1) {
+//                 (*l2)++;
+//                 return true;
+//             }
+//             break;
+//     }
+
+//     return false;
+// }
+
+// Retourne true si le joueur essaie d'échanger 2 items
+bool selectionItem (char touche, int *l1, int *c1, int *l2, int *c2) {
     *l1 = curseurL;
     *c1 = curseurC;
     *l2 = curseurL;
     *c2 = curseurC;
-
-    switch (touche) {
-        case 'q': // gauche
+    switch(touche){
+        case 'Q': // gauche
             if (curseurC > 0) {
                 (*c2)--;
                 return true;
             }
             break;
-
-        case 's': // droite
+        case 'S': // droite
             if (curseurC < LARGEUR - 1) {
                 (*c2)++;
                 return true;
             }
             break;
-
-        case 'z': // haut
+        case 'Z': // haut
             if (curseurL > 0) {
                 (*l2)--;
                 return true;
             }
             break;
-
-        case 'w': // bas
-            if (curseurL < HAUTEUR - 1) {
+        case 'W': // bas
+            if (curseurL < HAUTEUR - 1) {               
                 (*l2)++;
                 return true;
             }
             break;
     }
-
     return false;
 }
-
 /* ================= DEPLACEMENT DU CURSEUR ================= */
 
 void deplacementTouches(char touche)
