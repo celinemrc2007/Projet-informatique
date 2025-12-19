@@ -108,3 +108,16 @@ void gererEchecPartie(int *vies_restantes){
 }
 
 
+void gererBonusNiveau3(ResultatFigure fig){ //gestion des bonus apparaissant au niveau 3
+    if (niveau == 3 &&fig.taille >=5){
+
+        // Bonus coups si assemblage de 5 ou plus
+        if (fig.taille >= 5){
+            coups_restants += 5;
+
+            // Sécurité 
+            if (coups_restants > 99)
+                coups_restants = 99;
+        }
+    }
+}
