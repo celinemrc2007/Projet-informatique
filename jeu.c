@@ -417,3 +417,75 @@ int jeu () {
     }
     while(false);    
 }
+
+
+int malusRouge[HAUTEUR][LARGEUR]; //variable à utiliser pour le malus, elle doit survivre pendant tout le niveau
+
+
+void placerMalus(int niveau) { //Fonction qui place des % rouges au début d’un niveau
+    if (niveau < 2) return; // malus seulement pour niveau 2 et 3
+
+    // Réinitialiser totalement la grille malusRouge
+    for (int i=0; i<HAUTEUR; i++)
+        for (int j=0; j<LARGEUR; j++)
+            malusRouge[i][j] = 0; //0 = pas de malus
+
+    int nbMalus = 5; // nombre de % rouges à placer sur la grille
+    srand(time(NULL)); //initialisation du generateur de nombre aleatoire
+    for (int k=0; k<nbMalus; k++) {
+        int i, j;
+        do {
+            i = rand() % HAUTEUR;
+            j = rand() % LARGEUR; //on tire les coordonnées d'une case au hasard dans la grille
+        } while (grille[i][j] != 5 || malusRouge[i][j] == 1); // on place seulement sur %, on refuse la case si le malus est déja présent
+        malusRouge[i][j] = 1; //la case est marquée comme rouge
+    }
+}
+
+
+void appliquerMalus(ResultatFigure fig, int *temps_restant) { //appelée lorsqu'une figure est détectée et peut modifier le temps restant
+    // Vérifie si un % rouge est dans la figure éliminée
+    int i, j;
+    switch (fig.type) { //on agit differemment selon le type de figure éliminée
+        case SUITE_LIGNE:
+            for (j=fig.colonne; j<fig.colonne+fig.taille; j++){ //boucle qui parcourt les colonnes de la suite
+                if (grille[fig.ligne][j] == 5 && malusRouge[fig.ligne][j] == 1) {
+                    *temps_restant -= 10; // pénalité 10 secondes
+                    malusRouge[fig.ligne][j] = 0; // on ne pénalise qu'une fois
+                }
+            }
+            break;
+        case SUITE_COLONNE:
+            for (i=fig.ligne; i<fig.ligne+fig.taille; i++){ //boucle qui parcourt les lignes de la suite
+                if (grille[i][fig.colonne] == 5 && malusRouge[i][fig.colonne] == 1) {
+                    *temps_restant -= 10; //penalité de 10 seconde
+                    malusRouge[i][fig.colonne] = 0; //on ne pénalise qu'une fois
+                }
+            }
+            break;
+        case CARRE:
+            for (i=fig.ligne; i<fig.ligne+TAILLE_CARRE; i++){
+                for (j=fig.colonne; j<fig.colonne+TAILLE_CARRE; j++){ //boucle qui parcourt tout le carré
+                    if (grille[i][j] == 5 && malusRouge[i][j] == 1) {
+                        *temps_restant -= 10; //pénalité 10 seconde
+                        malusRouge[i][j] = 0; //on ne pénalise qu'une fois
+                    }
+                }
+            }
+            break;
+        case CROIX:
+            // ligne verticale
+            for (i=fig.ligne-2; i<=fig.ligne+2; i++)
+                if (grille[i][fig.colonne] == 5 && malusRouge[i][fig.colonne] == 1) {
+                    *temps_restant -= 10; //pénalité 10 secondes
+                    malusRouge[i][fig.colonne] = 0; //on ne ^énalise qu'une fois
+                }
+            // ligne horizontale
+            for (j=fig.colonne-2; j<=fig.colonne+2; j++)
+                if (grille[fig.ligne][j] == 5 && malusRouge[fig.ligne][j] == 1) {
+                    *temps_restant -= 10; //pénalité 10 secondes
+                    malusRouge[fig.ligne][j] = 0; //on ne pénalise qu'une fois
+                }
+            break;
+    }
+}
