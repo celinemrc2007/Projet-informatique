@@ -84,7 +84,7 @@ ResultatFigure detecterSuiteEnLigne(){
 
             } else {
                 if(compteur>=3){ //on a une suite valide si elle fait au moins 3 cases
-                    resultatL.type = 0; //type PAS_DE_FIGURE
+                    resultatL.type = SUITE_LIGNE ; //type SUITE_LIGNE
                     resultatL.ligne = i; //on veut le numero de la ligne où se trouve la suite
                     resultatL.colonne = j - compteur + 1;//on veut le numero de la première colonne où commence la suite
                     resultatL.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
@@ -127,7 +127,7 @@ ResultatFigure detecterSuiteEnColonne(){
 
             } else {
                 if(compteur>=3){//on a une suite valide si elle fait au moins 3 cases
-                    resultatC.type = 2; //type SUITE_EN_COLONNE
+                    resultatC.type = SUITE_COLONNE; //type SUITE_EN_COLONNE
                     resultatC.ligne = i-compteur + 1; //on veut le numero de la première ligne où commence la suite
                     resultatC.colonne = j;
                     resultatC.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
@@ -169,7 +169,7 @@ ResultatFigure detecterCarre(){
             if(c==0) continue; //si la case est vide, on continue de chercher dans la grille
 
             if(grille[i][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i+3][j]== c && grille[i+3][j+1]== c && grille[i+3][j+2]== c && grille[i+3][j+3]== c && grille[i][j+1]== c && grille[i][j+2]== c && grille[i][j+3]== c && grille[i+1][j+3]== c && grille[i+2][j+3]== c){
-                resultatCr.type = 3; //type CARRE
+                resultatCr.type = CARRE; //type CARRE
                 resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
                 resultatCr.colonne = j; //colonne où se trouve la case en haut à gauche du carré
                 resultatCr.taille = 4; //le carré fait 4 items de côté
@@ -205,7 +205,7 @@ ResultatFigure detecterCroix(){
             if(c==0) continue; //si la case est vide, on continue de chercher dans la grille
 
             if(grille[i][j]== c && grille[i-1][j]== c && grille[i-2][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i][j-1]== c && grille[i][j-2]== c && grille[i][j+1]== c && grille[i][j+2]== c){
-                resultatCx.type = 4;  //type CROIX
+                resultatCx.type = CROIX;  //type CROIX
                 resultatCx.ligne = i; //ligne où se trouve la case centrale de la croix
                 resultatCx.colonne = j; //colonne où se trouve la case centrale de la croix
                 resultatCx.taille = 5; //la croix fait 5 items par branche 
@@ -250,7 +250,7 @@ ResultatFigure detecterFigure(){
         return resultatglobal;
     }
     // Pas de figure détectée
-    resultatglobal.type = 0;
+    resultatglobal.type = PAS_DE_FIGURE;
     resultatglobal.ligne = -1;
     resultatglobal.colonne = -1;
     resultatglobal.taille = 0;
