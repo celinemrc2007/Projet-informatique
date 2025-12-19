@@ -13,7 +13,7 @@ void quitterProgramme();
 #ifndef GESTION_NIVEAU_H
 #define GESTION_NIVEAU_H
 
-#include "jouer.h"
+#include "jeu.h"
 
 /* ===== VARIABLES ===== */
 
