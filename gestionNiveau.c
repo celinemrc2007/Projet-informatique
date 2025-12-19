@@ -121,3 +121,136 @@ void gererBonusNiveau3(ResultatFigure fig){ //gestion des bonus apparaissant au 
         }
     }
 }
+
+
+
+
+
+//*********************NOUVELLE VERSION****************************//
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+
+#include "gestionNiveau.h"
+#include "affichage.h"
+#include "jouer.h"
+
+/* ================= VARIABLES GLOBALES ================= */
+
+int niveau = 1;                 // niveau courant
+static int *copie_contrat = NULL; // pointeur vers le contrat courant
+
+/* ================= GETTER ================= */
+
+int get_niveau(void) {
+    return niveau;
+}
+
+/* ================= LANCEMENT NIVEAU ================= */
+
+void lancerNiveau(int compteurs_contrat[7]) {
+
+    copie_contrat = compteurs_contrat;
+
+    /* Initialisation du contrat selon le niveau */
+    for (int i = 1; i <= 5; i++)
+        compteurs_contrat[i] = 0;
+
+    switch (niveau) {
+        case 1:
+            for (int i = 1; i <= 3; i++) compteurs_contrat[i] = 5;
+            for (int i = 4; i <= 5; i++) compteurs_contrat[i] = 10;
+            break;
+
+        case 2:
+            for (int i = 1; i <= 3; i++) compteurs_contrat[i] = 8;
+            for (int i = 4; i <= 5; i++) compteurs_contrat[i] = 10;
+            break;
+
+        case 3:
+            for (int i = 1; i <= 3; i++) compteurs_contrat[i] = 10;
+            for (int i = 4; i <= 5; i++) compteurs_contrat[i] = 12;
+            break;
+    }
+
+    afficherNumeroNiveau(niveau);
+    jeu();
+}
+
+/* ================= GESTION VIES ================= */
+
+void gererPerteVies(int *vies_restantes) {
+    if (*vies_restantes > 0)
+        (*vies_restantes)--;
+}
+
+/* ================= VICTOIRE NIVEAU ================= */
+
+void gererVictoireNiveau(void) {
+    system("cls");
+    printf("###############################################\n");
+    printf("#                                             #\n");
+    printf("#   Bravo ! Vous avez gagne le niveau !        #\n");
+    printf("#                                             #\n");
+    printf("###############################################\n");
+
+    Sleep(3000);
+
+    niveau++;
+
+    gererVictoirePartie(niveau - 1);
+}
+
+/* ================= ECHEC NIVEAU ================= */
+
+void gererEchecNiveau(int *vies_restantes) {
+    system("cls");
+    printf("###############################################\n");
+    printf("#                                             #\n");
+    printf("#   Dommage, niveau perdu...                   #\n");
+    printf("#                                             #\n");
+    printf("###############################################\n");
+
+    Sleep(3000);
+    gererPerteVies(vies_restantes);
+
+    if (*vies_restantes == 0)
+        gererEchecPartie(vies_restantes);
+}
+
+/* ================= VICTOIRE PARTIE ================= */
+
+void gererVictoirePartie(int niveau_final) {
+    if (niveau_final == 3) {
+        system("cls");
+        printf("\n\n");
+        printf("#############################################\n");
+        printf("#                                           #\n");
+        printf("#   FELICITATIONS !                          #\n");
+        printf("#   Vous avez termine le JEU !               #\n");
+        printf("#                                           #\n");
+        printf("#############################################\n");
+        Sleep(5000);
+    }
+}
+
+/* ================= ECHEC PARTIE ================= */
+
+void gererEchecPartie(int *vies_restantes) {
+    system("cls");
+    printf("GAME OVER !\n");
+    Sleep(3000);
+}
+
+/* ================= BONUS NIVEAU 3 ================= */
+
+void gererBonusNiveau3(ResultatFigure fig) {
+
+    if (niveau == 3 && fig.taille >= 5) {
+
+        coups_restants += 5;
+
+        if (coups_restants > 99)
+            coups_restants = 99;
+    }
+}
