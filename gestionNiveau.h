@@ -6,3 +6,33 @@ void gererPerteVies(int *vies_restantes); //retirer une vie si le joueur a écou
 void gererVictoirePartie(int niveau);
 void gererEchecPartie(int *vies_restantes);
 void quitterProgramme();
+
+
+
+//*********************NOUVELLE VERSION****************************//
+#ifndef GESTION_NIVEAU_H
+#define GESTION_NIVEAU_H
+
+#include "jouer.h"
+
+/* ===== VARIABLES ===== */
+
+extern int niveau;
+
+/* ===== FONCTIONS ===== */
+
+int get_niveau(void);
+
+void lancerNiveau(int compteurs_contrat[7]);
+
+void gererPerteVies(int *vies_restantes);
+
+void gererVictoireNiveau(void);
+void gererEchecNiveau(int *vies_restantes);
+
+void gererVictoirePartie(int niveau_final);
+void gererEchecPartie(int *vies_restantes);
+
+void gererBonusNiveau3(ResultatFigure fig);
+
+#endif
