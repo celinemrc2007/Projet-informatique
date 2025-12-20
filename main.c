@@ -70,15 +70,10 @@
 #include "gestionNiveau.h"
 #include "jeu.h"
 
-// Efface l'écran
-void clrscr(void)
-{
-    printf("\x1B[2J\x1B[H"); // efface écran et replace le curseur en haut à gauche
-}
-
 // Afficher le menu principal
 int menu() {
     int choix;
+    text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     printf("\n===== MENU PRINCIPAL =====\n");
     printf("1. Lire les regles du jeu\n");
     printf("2. Commencer une nouvelle partie\n");
@@ -98,26 +93,25 @@ int main() {
         switch(choix) {
 
             case 1: // Afficher règles
-                clrscr();
+                system("cls");
                 afficherRegles();
                 printf("\nAppuyez sur une touche pour revenir au menu...\n");
                 _getch();
-                clrscr();
+                system("cls");
                 break;
 
             case 2: { // Nouvelle partie
-                clrscr();
-                char pseudo[50];
+                system("cls");
                 printf("Entrez votre pseudo : ");
                 scanf("%49s", pseudo);
-                clrscr();
+                system("cls");
 
                 // Initialiser partie : niveau 1, vies 3
-                int niveau = 1;
-                int vies = 3;
+                niveau = 1;
+                vies_restantes = 3;
 
                 // Sauvegarder automatiquement le pseudo pour reprise
-                sauvegarderPartie(pseudo, niveau, vies);
+                sauvegarderPartie(pseudo, niveau, vies_restantes);
 
                 // Lancer le niveau
                 lancerNiveau(compteurs_contrat);
@@ -125,19 +119,14 @@ int main() {
             }
 
             case 3: { // Reprendre partie
-                clrscr();
-                char pseudo[50];
+                system("cls");
                 printf("Entrez votre pseudo : ");
                 scanf("%49s", pseudo);
-                clrscr();
+                system("cls");
 
-                int niveau, vies;
-                if (chargerPartie(pseudo, &niveau, &vies)) {
-                    printf("Sauvegarde chargee ! Niveau %d, Vies %d\n", niveau, vies);
+                if (chargerPartie(pseudo, &niveau, &vies_restantes)) {
+                    printf("Sauvegarde chargee ! Niveau %d, Vies %d\n", niveau, vies_restantes);
                     Sleep(1500);
-                    clrscr ();
-
-                    // Récupération des compteurs de contrat pour ce niveau
                     lancerNiveau(compteurs_contrat);
                 } else {
                     printf("Aucune sauvegarde pour ce pseudo.\n");
