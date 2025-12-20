@@ -193,8 +193,8 @@ void afficherRegles() {
     printf("  s : bas\n");
     printf("  q : gauche\n");
     printf("  d : droite\n");
-    printf("Espace : selection / permutation\n");
-    printf("\nAppuyez sur une touche pour revenir au menu...");
+    printf("Shift : selection / permutation\n");
+    printf("\nAppuyez sur une touche pour revenir au menu :)");
     _getch();
 }
 
