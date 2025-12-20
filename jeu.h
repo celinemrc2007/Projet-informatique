@@ -62,6 +62,7 @@ void appliquerMalus(ResultatFigure fig, int *temps_restant);
 extern int grille[HAUTEUR][LARGEUR];
 extern int compteurs_contrat[7];
 extern int coups_restants;
+extern int temps_restants
 extern int malusRouge[HAUTEUR][LARGEUR];
 
 #endif
