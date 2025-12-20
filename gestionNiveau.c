@@ -23,7 +23,7 @@ int vies_restantes = 3;
 char pseudo[MAX_PSEUDO];
 static int *copie_contrat = NULL; // pointeur vers le contrat courant
 
-/* ================= GETTER ================= */
+/* ================= PERMET DE PASSER LE PARAMETRE NIVEAU A CERTAINES SOUS-PROGRAMMES ================= */
 
 int get_niveau(void) {
     return niveau;
@@ -127,7 +127,7 @@ void gererEchecNiveau() {
         //Demande à l'utilisateur s'il souhaite retenter le niveau ou quitter le programme
         char choix;
         printf("\nIl vous reste %d vie(s).\n", vies_restantes);      
-        printf("Souhaitez vous relancer le niveau ? \n");
+        printf("Relancer le niveau ? (O/N) \n");
         printf("Saisir O pour oui. Saisir N pour non.");
         while(!_kbhit()) { Sleep(20); }
         choix = _getch();
