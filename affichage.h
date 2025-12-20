@@ -17,8 +17,8 @@ void afficherItemsRestants(int itemsRestants[]); //afficher le nombre d'items re
 #include <windows.h>
 
 /* Dimensions de la grille */
-#define HAUTEUR 10
-#define LARGEUR 9
+#define HAUTEUR 12
+#define LARGEUR 11
 
 /* ============== VARIABLES ==================*/
 
