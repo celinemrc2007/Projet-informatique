@@ -158,7 +158,7 @@ void lancerNiveau(int compteurs_contrat[7]) {
             compteurs_contrat[ITEM_POURCENT] = 15;
             compteurs_contrat[ITEM_O] = 20;
             coups_restants = 20;
-            temps_restant = 180; //3 min 
+            temps_restant = 120; //2 min 
             break;
 
         case 2:
@@ -167,7 +167,7 @@ void lancerNiveau(int compteurs_contrat[7]) {
             compteurs_contrat[ITEM_POURCENT] = 20;
             compteurs_contrat[ITEM_ET] = 15;
             coups_restants = 30;
-            temps_restant = 150; //2 min 30
+            temps_restant = 105; //1 min 45
             break;
 
         case 3:
@@ -176,7 +176,7 @@ void lancerNiveau(int compteurs_contrat[7]) {
             compteurs_contrat[ITEM_POURCENT] = 20;
             compteurs_contrat[ITEM_ET] = 30;
             coups_restants = 30;
-            temps_restant = 120; //2 min 
+            temps_restant = 90; //1 min 30
             break;
     }
 
