@@ -1,3 +1,4 @@
+
 // void lancerNiveau(int compteurs_contrat[7]); //appeler la fonction jeu et toutes les fonctions du module affichage
 // //void bonus ();
 // //void malus ();
@@ -13,9 +14,11 @@
 #define GESTION_NIVEAU_H
 
 #include "jeu.h"
+#include "sauvegarde.h"
 
 /* ===== VARIABLES ===== */
 
+extern char pseudo[MAX_PSEUDO];
 extern int niveau;
 extern int vies_restantes; 
 
@@ -30,7 +33,7 @@ void gererPerteVies();
 void gererVictoireNiveau(void);
 void gererEchecNiveau();
 
-void gererVictoirePartie(int niveau_final);
+void gererVictoirePartie();
 void gererEchecPartie();
 
 void gererBonusNiveau3(ResultatFigure fig);
