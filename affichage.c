@@ -140,7 +140,12 @@
 
 #define HAUTEUR 10
 #define LARGEUR 9
-#define COLONNE_INFO (LARGEUR * 2 + 6)
+#define COLONNE_INFO (LARGEUR * 2 + 6) //chaque case fait deux caractères, +6 permet l'espace entre la grille et les infos
+#define LIGNE_CONTRAT 1
+#define LIGNE_NIVEAU  8
+#define LIGNE_COUPS   10
+#define LIGNE_TEMPS   12
+#define LIGNE_VIES    14
 
 /* =================== OUTILS CONSOLE =================== */
 
@@ -165,35 +170,37 @@ void afficherNumeroNiveau(int niveau) {
 }
 
 void afficherNombredeVies(int vies_restantes) {
-    gotoxy(COLONNE_INFO, 8);
-    printf("Vies : %d", vies_restantes);
+    gotoxy(COLONNE_INFO, LIGNE_VIES);
+    printf("Vies  : %d  ", vies_restantes);
 }
 
 void afficherCoupsRestants(int coups_restants) {
-    gotoxy(COLONNE_INFO, 9);
-    printf("Coups : %d", coups_restants);
+    gotoxy(COLONNE_INFO, LIGNE_COUPS);
+    printf("Coups : %2d  ", coups_restants);
 }
 
 void afficherTempsRestant(int temps_restant) {
     int minutes = temps_restant / 60;
     int secondes = temps_restant % 60;
 
-    gotoxy(COLONNE_INFO, 10);
-    printf("Temps : %02d:%02d", minutes, secondes);
+    gotoxy(COLONNE_INFO, LIGNE_TEMPS);
+    printf("Temps : %02d:%02d  ", minutes, secondes);
 }
 
 /* =================== REGLES =================== */
 
 void afficherRegles() {
     system("cls");
-    printf("======= REGLES DU JEU =======\n\n");
-    printf("Former des figures avec des permutations.\n");
-    printf("Touches :\n");
+    printf("======= Regles du jeu =======\n");
+    printf("Le but du jeu est d'eliminer le plus d'items possible lors d'un niveau. Il y a 3 niveaux par partie, pour chaque niveau, l'utilisateur doit repondre a un contrat lui indiquant le nombre d'items a eliminer et le temps imparti.\n");
+    printf("Pour vous deplacer dans la grille de jeu, utilisez les touches suivantes : \n");
     printf("  z : haut\n");
     printf("  s : bas\n");
     printf("  q : gauche\n");
     printf("  d : droite\n");
-    printf("Shift : selection / permutation\n");
+    printf("Appuyez sur shift pour selectionner un item.\n");
+    printf("Chaque niveau peut etre sauvegarde avec un pseudo utilisateur, afin d'y retourner plus tard.\n");
+    printf("A vous de jouer !\n");
     printf("\nAppuyez sur une touche pour revenir au menu :)");
     _getch();
 }
