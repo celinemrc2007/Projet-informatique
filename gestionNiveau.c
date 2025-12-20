@@ -235,7 +235,7 @@ void gererEchecPartie() {
 
 void gererBonusNiveau3(ResultatFigure fig) {
 
-    if (niveau == 3 && fig.taille >= 5) {
+    if (niveau == 3 && fig.taille == 5) {
 
         coups_restants += 5;
 
