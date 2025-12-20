@@ -1,123 +1,11 @@
-
-
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
-// #include <time.h>
-// #include <windows.h> 
-// #include "affichage.h"
-// #include "sauvegarde.h"
-// #include "gestionClavier.h"
-// #include "sauvegarde.h"
-// #include "gestionNiveau.h"
-// #include "jeu.h"
-
-
-// #define HAUTEUR 10
-// #define LARGEUR 9
-// #define DUREE 120000
-// int niveau=1;
-
-// int *copie_contrat;
-
-// int get_niveau() { return niveau; }
-
-// void lancerNiveau(int compteurs_contrat[7]) {
-
-//  switch(niveau) {
-//      case 1: // Definir 1e contrat du niveau 1
-//          for (int i=1 ; i<=3 ; i++) compteurs_contrat[i] = 5;
-//          for (int i=4 ; i<=5 ; i++) compteurs_contrat[i] = 10;
-//          break;
-//      case 2:  // Definir 1e contrat du niveau 2
-//          for (int i=1 ; i<=3 ; i++) compteurs_contrat[i] = 8;
-//          for (int i=4 ; i<=5 ; i++) compteurs_contrat[i] = 10;
-//          break;
-//      case 3:  // Definir 1e contrat du niveau 3
-//          for (int i=1 ; i<=3 ; i++) compteurs_contrat[i] = 10;
-//          for (int i=4 ; i<=5 ; i++) compteurs_contrat[i] = 12;
-//          break;
-//  }
-//  afficherNumeroNiveau(niveau);
-//  jeu();
-// }
-
-// void gerePerteVies(int *vies_restantes){
-//     if (*vies_restantes > 0) {
-//         (*vies_restantes)--; //utilisateur perd une vie s'il lui en reste
-//     }
-// }
-
-// void gereVictoireNiveau(){
-//  printf("###############################################\n");
-//  printf("#                                             #\n");
-//  printf("     ! Bravo vous avez gagne le niveau !       \n");
-//  printf("#                                             #\n");
-//  printf("###############################################\n");    
-//  Sleep(5000); //affichage du message pendant 5 sec
-//  gererVictoirePartie (niveau);
-// }
-// void gererEchecNiveau(int *vies_restantes){
-//  printf("###############################################\n");
-//  printf("#                                             #\n");
-//  printf("      Dommage vous avez perdu le niveau :(     \n");
-//  printf("#                                             #\n");
-//  printf("###############################################\n");
-//  Sleep(5000);
-//  gererPerteVies(vies_restantes);
-//  if(*vies_restantes == 0) {
-//      gererEchecPartie (vies_restantes);
-//  } else {
-//      //reprendrePartie ();
-//  }
-// }
-// void gererVictoirePartie(int niveau){
-//     if (niveau == 3){
-//         system("cls");
-//         printf("\n\n");
-//         printf("#############################################\n");
-//         printf("#                                           #\n");
-//         printf("#   FELICITATIONS !                         #\n");
-//         printf("#   Vous avez termine le JEU !              #\n");
-//         printf("#                                           #\n");
-//         printf("#############################################\n");
-//         printf("\nRetour au menu principal...\n");
-//         Sleep(10000); // pause 10 secondes
-//     }
-// }
-// void gererEchecPartie(int *vies_restantes){
-//     int vies = gererPerteVies(vies_restantes);
-//     if (vies > 0){
-//         char choix;
-//         printf("Echec de la partie. Il vous reste %d vie(s).\n", vies);
-//         printf("Relancer le niveau ? (O/N)\n");
-//         scanf("%c", &choix);
-//         if (choix == 'O' || choix == 'o'){
-//             lancerNiveau(compteurs_contrat);
-//         }
-//         else{
-//           // A faire pb d'organisation menu(); // retour au menu  menu();
-//         }
-
-//     } else{
-//         printf("GAME OVER !\n");
-//         Sleep(3000);
-//        // A faire pb d'organisation menu(); // retour au menu menu();
-//     }
-// }
-
-
-
-//*********************NOUVELLE VERSION****************************//
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
 #include <conio.h>
 
-#include "gestionNiveau.h"
 #include "affichage.h"
+#include "gestionNiveau.h"
 #include "jeu.h"
 #include "sauvegarde.h"
 
@@ -158,23 +46,23 @@ void lancerNiveau(int compteurs_contrat[7]) {
             compteurs_contrat[ITEM_POURCENT] = 15;
             compteurs_contrat[ITEM_O] = 20;
             coups_restants = 20;
-            temps_restant = 120; //2 min 
+            temps_restant = 120; //2 min
             break;
 
         case 2:
             compteurs_contrat[ITEM_X] = 25;
             compteurs_contrat[ITEM_O] = 20;
             compteurs_contrat[ITEM_POURCENT] = 20;
-            compteurs_contrat[ITEM_ET] = 15;
+            compteurs_contrat[ITEM_ET] = 25;
             coups_restants = 30;
             temps_restant = 105; //1 min 45
             break;
 
         case 3:
-            compteurs_contrat[ITEM_X] = 30;
-            compteurs_contrat[ITEM_O] = 20;
-            compteurs_contrat[ITEM_POURCENT] = 20;
-            compteurs_contrat[ITEM_ET] = 30;
+            compteurs_contrat[ITEM_X] = 30/5;
+            compteurs_contrat[ITEM_O] = 20/5;
+            compteurs_contrat[ITEM_POURCENT] = 20/5;
+            compteurs_contrat[ITEM_ET] = 30/5;
             coups_restants = 30;
             temps_restant = 90; //1 min 30
             break;
