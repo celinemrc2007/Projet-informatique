@@ -142,10 +142,10 @@
 
 #define COLONNE_INFO (LARGEUR * 2 + 6) //chaque case fait deux caractères, +6 permet l'espace entre la grille et les infos
 #define LIGNE_CONTRAT 1
-#define LIGNE_NIVEAU  13
+#define LIGNE_NIVEAU  (HAUTEUR + 3)
 #define LIGNE_COUPS   8
 #define LIGNE_TEMPS   10
-#define LIGNE_VIES    16
+#define LIGNE_VIES    (HAUTEUR + 5)
 
 /* =================== OUTILS CONSOLE =================== */
 
