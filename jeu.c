@@ -846,9 +846,8 @@ int jeu(void) {
 
     srand(time(NULL));
     viderGrille();
-    genererItems();
- 
-    assurerAbsencesFiguresInitiales ();
+    genererItems(); 
+    assurerAbsencesFiguresInitiales();
     assurerGrilleJouable();
     
     while (coups_restants > 0) {
@@ -869,11 +868,8 @@ int jeu(void) {
 
             int l1,c1,l2,c2;
             if (selectionItem(touche,&l1,&c1,&l2,&c2)) {
-                //printf("selectionItem true\n");
                 if (permuterSiValide(l1,c1,l2,c2)) {
-                    //printf("permuterSiValide true\n");
                     coups_restants--;
-
                     ResultatFigure fig;
                     do {
                         fig = detecterFigure();
