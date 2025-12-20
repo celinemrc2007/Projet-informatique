@@ -438,7 +438,6 @@
 
 #define HAUTEUR 10
 #define LARGEUR 9
-#define DUREE 120
 
 #define PAS_DE_FIGURE 0
 #define SUITE_LIGNE 1
@@ -522,21 +521,21 @@ ResultatFigure detecterSuiteEnLigne(){
                 compteur++;
 
             } else {
-                if(compteur>=3){ //on a une suite valide si elle fait au moins 3 cases
+                if(compteur>3){ //on a une suite valide si elle fait au moins 4 cases
                     resultatL.type = SUITE_LIGNE ; //type SUITE_LIGNE
                     resultatL.ligne = i; //on veut le numero de la ligne où se trouve la suite
                     resultatL.colonne = j - compteur; //+ 1;//on veut le numero de la première colonne où commence la suite
-                    resultatL.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
+                    resultatL.taille = compteur; //taille de la suite (4, 5 ou 6)
                     return resultatL;
                 }
                 compteur = 1; // reinitialisation si les deux cases consécutives ne sont pas identiques
             }   
         }
-        if(compteur>=3) { // Cas d'une suite en fin de ligne
+        if(compteur>3) { // Cas d'une suite en fin de ligne
             resultatL.type = SUITE_LIGNE ; //type SUITE_LIGNE
             resultatL.ligne = i; //on veut le numero de la ligne où se trouve la suite
             resultatL.colonne = j - compteur; //+ 1;//on veut le numero de la première colonne où commence la suite
-            resultatL.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
+            resultatL.taille = compteur; //taille de la suite (4, 5 ou 6)
             return resultatL;
         }
     }
@@ -573,7 +572,7 @@ ResultatFigure detecterSuiteEnColonne(){
                 compteur++;
 
             } else {
-                if(compteur>=3){//on a une suite valide si elle fait au moins 3 cases
+                if(compteur>3){//on a une suite valide si elle fait au moins 3 cases
                     resultatC.type = SUITE_COLONNE; //type SUITE_EN_COLONNE
                     resultatC.ligne = i-compteur; //+ 1; //on veut le numero de la première ligne où commence la suite
                     resultatC.colonne = j;
@@ -583,7 +582,7 @@ ResultatFigure detecterSuiteEnColonne(){
                 compteur = 1; //reinitialisation si les deux cases consécutives ne sont pas identiques
             }
         }
-        if(compteur>=3) { // Cas d'une suite en fin de colonne
+        if(compteur>3) { // Cas d'une suite en fin de colonne
             resultatC.type = SUITE_COLONNE; //type SUITE_EN_COLONNE
             resultatC.ligne = i-compteur; //+ 1; //on veut le numero de la première ligne où commence la suite
             resultatC.colonne = j;
