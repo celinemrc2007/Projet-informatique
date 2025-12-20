@@ -135,6 +135,7 @@ int main() {
                 if (chargerPartie(pseudo, &niveau, &vies)) {
                     printf("Sauvegarde chargee ! Niveau %d, Vies %d\n", niveau, vies);
                     Sleep(1500);
+                    clrscr ();
 
                     // Récupération des compteurs de contrat pour ce niveau
                     lancerNiveau(compteurs_contrat);
