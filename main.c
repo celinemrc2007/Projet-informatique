@@ -129,6 +129,7 @@ int main() {
                 char pseudo[50];
                 printf("Entrez votre pseudo : ");
                 scanf("%49s", pseudo);
+                clrscr();
 
                 int niveau, vies;
                 if (chargerPartie(pseudo, &niveau, &vies)) {
