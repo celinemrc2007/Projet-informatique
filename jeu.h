@@ -28,6 +28,13 @@ int gererContrat();
 #define TAILLE_CARRE 4
 #define TAILLE_CROIX 5
 
+/* ========================== VARIABLES =======================*/
+
+extern int grille[HAUTEUR][LARGEUR];
+extern int compteurs_contrat[7];
+extern int coups_restants;
+extern int malusRouge[HAUTEUR][LARGEUR];
+
 /* ========================== STRUCTURE =========================*/
 typedef struct {
     int type;
@@ -122,12 +129,7 @@ int verifierAbsencesFiguresInitiales(void);
 void placerMalus(int niveau);
 void appliquerMalus(ResultatFigure fig, int *temps_restant);
 
-/* ========================== VARIABLES =======================*/
 
-extern int grille[HAUTEUR][LARGEUR];
-extern int compteurs_contrat[7];
-extern int coups_restants;
-extern int malusRouge[HAUTEUR][LARGEUR];
 
 #endif
 
