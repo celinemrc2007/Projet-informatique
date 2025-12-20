@@ -17,6 +17,7 @@
 /* ===== VARIABLES ===== */
 
 extern int niveau;
+extern int vies_restantes; 
 
 /* ===== FONCTIONS ===== */
 
