@@ -18,8 +18,8 @@ int gererContrat();
 #ifndef JEU_H
 #define JEU_H
 
-#define HAUTEUR 10
-#define LARGEUR 9
+#define HAUTEUR 12
+#define LARGEUR 11
 #define PAS_DE_FIGURE 0
 #define SUITE_LIGNE 1
 #define SUITE_COLONNE 2
