@@ -117,6 +117,13 @@
 #include "affichage.h"
 #include "jeu.h"
 
+#define ITEM_X 1
+#define ITEM_O 2
+#define ITEM_ET 3
+#define ITEM_AROBASE 4
+#define ITEM_POURCENT 5
+
+
 /* ================= VARIABLES GLOBALES ================= */
 
 int niveau = 1;                 // niveau courant
@@ -141,28 +148,40 @@ void lancerNiveau(int compteurs_contrat[7]) {
 
     switch (niveau) {
         case 1:
-            for (int i = 1; i <= 3; i++) compteurs_contrat[i] = 5;
-            for (int i = 4; i <= 5; i++) compteurs_contrat[i] = 10;
+            compteurs_contrat[ITEM_X] = 15;
+            compteurs_contrat[ITEM_AROBASE] = 20;
+            compteurs_contrat[ITEM_POURCENT] = 15;
+            compteurs_contrat[ITEM_O] = 20;
+            coups_restants = 30;
+            temps_restant = 120; //2 min
             break;
 
         case 2:
-            for (int i = 1; i <= 3; i++) compteurs_contrat[i] = 8;
-            for (int i = 4; i <= 5; i++) compteurs_contrat[i] = 10;
+            compteurs_contrat[ITEM_X] = 30;
+            compteurs_contrat[ITEM_O] = 20;
+            compteurs_contrat[ITEM_POURCENT] = 20;
+            compteurs_contrat[ITEM_ET] = 30;
+            coups_restants = 40;
+            temps_restant = 105; //1 min 45
             break;
 
         case 3:
-            for (int i = 1; i <= 3; i++) compteurs_contrat[i] = 10;
-            for (int i = 4; i <= 5; i++) compteurs_contrat[i] = 12;
+            compteurs_contrat[ITEM_X] = 30;
+            compteurs_contrat[ITEM_O] = 20;
+            compteurs_contrat[ITEM_POURCENT] = 20;
+            compteurs_contrat[ITEM_ET] = 30;
+            coups_restants = 40;
+            temps_restant = 105; //1 min 30
             break;
     }
 
     afficherNumeroNiveau(niveau);
     int resultat_jeu = jeu();
     if(resultat_jeu==1) {
-    	gererVictoireNiveau ();
+        gererVictoireNiveau ();
     }
     else {
-    	gererEchecNiveau();
+        gererEchecNiveau();
     }
 }
 
