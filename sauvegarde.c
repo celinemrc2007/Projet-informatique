@@ -1,14 +1,6 @@
-//**************************************NOUVELLE VERSION****************************//
-
 #include <stdio.h>
 #include <string.h>
 #include "sauvegarde.h"
-
-/*
-Format du fichier texte (1 sauvegarde par ligne)
-pseudo;niveau;vies
-ex: Alice;3;2
-*/
 
 void sauvegarderPartie(const char *pseudo, int niveau, int vies)
 {
