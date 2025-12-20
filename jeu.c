@@ -448,11 +448,15 @@
 #define TAILLE_CARRE 4
 #define TAILLE_CROIX 5
 
+#define PROBABILITE_MALUS 30        // %
+#define DIMINUTION_DUREE_MALUS 10   // en secondes
+
 /* ================= VARIABLES GLOBALES ================= */
 
 int grille[HAUTEUR][LARGEUR];
 int compteurs_contrat[7];
 
+clock_t debut;
 int temps_restant;
 int coups_restants;
 
@@ -465,16 +469,32 @@ void viderGrille(void) {
 }
 
 void genererItems(void) {
-    for (int i=0;i<HAUTEUR;i++)
-        for (int j=0;j<LARGEUR;j++)
-            if (grille[i][j] == 0) grille[i][j] = 1 + rand() % 5;
+    for (int i=0;i<HAUTEUR;i++) {
+        for (int j=0;j<LARGEUR;j++) {
+            if (grille[i][j] == 0) {
+                grille[i][j] = 1 + rand() % 5;
+                if ((grille[i][j] == 5) && (rand() % 100 < PROBABILITE_MALUS)) {
+                    grille[i][j] += 8;
+                }
+            }
+        }
+    }
 }
 
 void viderCase(int i, int j) {
     int item = grille[i][j];
+    if ((item == 13) && (temps_restant > DIMINUTION_DUREE_MALUS)) {
+        // On fait comme si le jeu avait demarré 10 secondes plus tot
+        debut -= DIMINUTION_DUREE_MALUS * CLOCKS_PER_SEC;
+        Beep(200,1000);
+    }
+    item = item%8;
     if (item > 0 && compteurs_contrat[item] > 0)
         compteurs_contrat[item]--;
     grille[i][j] = 0;
+    afficherCoupsRestants(coups_restants);
+    afficherTempsRestant(temps_restant);
+    afficherItemsRestants(compteurs_contrat);
 }
 
 /* ================= CONTRAT ================= */
@@ -496,7 +516,7 @@ ResultatFigure detecterSuiteEnLigne(){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
         //boucle for pour parcourir les colonnes donc la largeur
         for(j=1; j<LARGEUR; j++){
-            if(grille[i][j]==grille[i][j-1] && grille[i][j] != 0){ //comparaison de deux cases consécutives
+            if(grille[i][j]%8==grille[i][j-1]%8 && grille[i][j] != 0){ //comparaison de deux cases consécutives
                 compteur++;
 
             } else {
@@ -522,13 +542,13 @@ ResultatFigure detecterSuiteEnLigne(){
 }
 
 void eliminerSuiteEnLigne(ResultatFigure resultatL) {
-    if(resultatL.taille >= 5) coups_restants+=5;
+    gererBonusNiveau3 (resultatL);
     if(resultatL.taille >= 6) {
         // On élimine tous les item identiques
-        int item = grille[resultatL.ligne][resultatL.colonne];
+        int item = grille[resultatL.ligne][resultatL.colonne]%8;
         for (int i = 0; i < HAUTEUR; i++) {
             for (int j = 0; j < LARGEUR; j++) {
-                if (grille[i][j] == item) viderCase(i, j);
+                if (grille[i][j]%8 == item) viderCase(i, j);
             }
         }
     } else {
@@ -547,7 +567,7 @@ ResultatFigure detecterSuiteEnColonne(){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
         //boucle for pour parcourir les lignes donc la hauteur
         for(i=1; i<HAUTEUR; i++){
-            if(grille[i][j]==grille[i-1][j] && grille[i][j] != 0){ //comparaison de deux cases consécutives
+            if(grille[i][j]%8 == grille[i-1][j]%8 && grille[i][j] != 0){ //comparaison de deux cases consécutives
                 compteur++;
 
             } else {
@@ -574,13 +594,13 @@ ResultatFigure detecterSuiteEnColonne(){
 
 
 void eliminerSuiteEnColonne(ResultatFigure resultatC) { 
-    if(resultatC.taille >= 5) coups_restants+=5;
+    gererBonusNiveau3 (resultatC);
     if(resultatC.taille >= 6) {
         // On élimine tous les item identiques
-        int item = grille[resultatC.ligne][resultatC.colonne];
+        int item = grille[resultatC.ligne][resultatC.colonne]%8;
         for (int i = 0; i < HAUTEUR; i++) {
             for (int j = 0; j < LARGEUR; j++) {
-                if (grille[i][j] == item) viderCase(i, j);
+                if (grille[i][j]%8 == item) viderCase(i, j);
             }
         }
     } else {
@@ -598,14 +618,16 @@ ResultatFigure detecterCarre(){
         //boucle for pour parcourir les colonnes donc la largeur
         for(j=0; j<LARGEUR-3; j++){
 
-            int c = grille[i][j]; //enregistrement du type d'item en entier dans la variable c
+            int c = grille[i][j]%8; //enregistrement du type d'item en entier dans la variable c
             if(c==0) continue; //si la case est vide, on continue de chercher dans la grille
 
-            if(grille[i][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i+3][j]== c && grille[i+3][j+1]== c && grille[i+3][j+2]== c && grille[i+3][j+3]== c && grille[i][j+1]== c && grille[i][j+2]== c && grille[i][j+3]== c && grille[i+1][j+3]== c && grille[i+2][j+3]== c){
+            if(grille[i][j]%8 == c && grille[i+1][j]%8 == c && grille[i+2][j]%8 == c && grille[i+3][j]%8 == c &&
+               grille[i+3][j+1]%8 == c && grille[i+3][j+2]%8 == c && grille[i+3][j+3]%8 == c &&
+               grille[i][j+1]%8 == c && grille[i][j+2]%8 == c && grille[i][j+3]%8 == c && grille[i+1][j+3]%8 == c && grille[i+2][j+3]%8 == c) {
                 resultatCr.type = CARRE; //type CARRE
                 resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
                 resultatCr.colonne = j; //colonne où se trouve la case en haut à gauche du carré
-                resultatCr.taille = 4; //le carré fait 4 items de côté
+                resultatCr.taille = TAILLE_CARRE; //le carré fait 4 items de côté
                 return resultatCr;
             }
         }
@@ -634,14 +656,15 @@ ResultatFigure detecterCroix(){
         //boucle for pour parcourir les colonnes donc la largeur
         for(j=2; j<LARGEUR-2; j++){ //au minimum le centre de la croix se trouve à la colonne 2
 
-            int c = grille[i][j]; //enregistrement du type d'item dans la variable c
+            int c = grille[i][j]%8; //enregistrement du type d'item dans la variable c
             if(c==0) continue; //si la case est vide, on continue de chercher dans la grille
 
-            if(grille[i][j]== c && grille[i-1][j]== c && grille[i-2][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i][j-1]== c && grille[i][j-2]== c && grille[i][j+1]== c && grille[i][j+2]== c){
+            if(grille[i][j]%8 == c && grille[i-1][j]%8 == c && grille[i-2][j]%8 == c && grille[i+1][j]%8 == c && grille[i+2][j]%8 == c &&
+               grille[i][j-1]%8 == c && grille[i][j-2]%8 == c && grille[i][j+1]%8 == c && grille[i][j+2]%8 == c){
                 resultatCx.type = CROIX;  //type CROIX
                 resultatCx.ligne = i; //ligne où se trouve la case centrale de la croix
                 resultatCx.colonne = j; //colonne où se trouve la case centrale de la croix
-                resultatCx.taille = 5; //la croix fait 5 items par branche 
+                resultatCx.taille = TAILLE_CROIX; //la croix fait 5 items par branche 
                 return resultatCx;
             }
         }
@@ -735,7 +758,7 @@ void appliquerGravite(void) {
                 if (grille[i][j] == 0) {
                     for (int k=i-1;k>=0;k--)
                         grille[k+1][j] = grille[k][j];
-                    grille[0][j] = 1 + rand() % 5;
+                    grille[0][j] = 1 + rand() % 5;  // Pas de malus rajouté
                 }
             }
             afficherGrille(grille);
@@ -792,10 +815,13 @@ void permuterItems(int l1,int c1,int l2,int c2) {
 
 int permuterSiValide(int l1,int c1,int l2,int c2) {
     permuterItems(l1,c1,l2,c2);
-
-    if (detecterFigure().type != PAS_DE_FIGURE)
+    if (detecterFigure().type != PAS_DE_FIGURE) {
         return 1;
+    }
     permuterItems(l1,c1,l2,c2);
+    Beep(200,500);
+    Sleep(200);
+    Beep(200,500);
     return 0;
 }
 
@@ -813,8 +839,8 @@ void melangerItems() {                                  //Echange les coordonné
 
 int jeu(void) {
     char touche;
-    clock_t debut = clock();
-
+    
+    debut = clock();
     coups_restants = 25;
     temps_restant = DUREE;
 
