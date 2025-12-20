@@ -125,9 +125,6 @@ void melangerItems(void);
 int jeu(void);
 
 
-int verifierAbsencesFiguresInitiales(void);
-void placerMalus(int niveau);
-void appliquerMalus(ResultatFigure fig, int *temps_restant);
 
 
 
