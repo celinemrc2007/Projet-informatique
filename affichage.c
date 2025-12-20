@@ -140,8 +140,6 @@
 #include "affichage.h"
 #include "gestionClavier.h"
 
-#define HAUTEUR 12
-#define LARGEUR 11
 #define COLONNE_INFO (LARGEUR * 2 + 6) //chaque case fait deux caractères, +6 permet l'espace entre la grille et les infos
 #define LIGNE_CONTRAT 1
 #define LIGNE_NIVEAU  13
