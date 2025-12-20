@@ -840,19 +840,19 @@ void melangerItems() {                                  //Echange les coordonné
 int jeu(void) {
     char touche;
     
-    debut = clock();
-    coups_restants = 25;
-    temps_restant = DUREE;
+    clock_t debut = clock();
+    int temps_depart = temps_restant;
 
     srand(time(NULL));
     viderGrille();
-    genererItems(); 
-    assurerAbsencesFiguresInitiales();
+    genererItems();
+ 
+    assurerAbsencesFiguresInitiales ();
     assurerGrilleJouable();
     
     while (coups_restants > 0) {
 
-        temps_restant = DUREE - (clock() - debut) / CLOCKS_PER_SEC;
+        temps_restant = temps_depart - (clock() - debut) / CLOCKS_PER_SEC;
         if (temps_restant <= 0) return 2;
 
         afficherGrille(grille);
