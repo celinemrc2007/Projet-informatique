@@ -473,7 +473,7 @@ void genererItems(void) {
         for (int j=0;j<LARGEUR;j++) {
             if (grille[i][j] == 0) {
                 grille[i][j] = 1 + rand() % 5;
-                if ((grille[i][j] == 5) && (rand() % 100 < PROBABILITE_MALUS)) {
+                if ((niveau > 1) && (grille[i][j] == 5) && (rand() % 100 < PROBABILITE_MALUS)) {
                     grille[i][j] += 8;
                 }
             }
