@@ -1,3 +1,4 @@
+
 // #include <stdio.h>
 // #include <stdlib.h>
 // #include <string.h>
@@ -459,6 +460,7 @@ int compteurs_contrat[7];
 clock_t debut;
 int temps_restant;
 int coups_restants;
+bool malus_actif = true;   // Pas de malus pour les figures detectées automatiquement 
 
 /* ================= OUTILS ================= */
 
@@ -483,7 +485,7 @@ void genererItems(void) {
 
 void viderCase(int i, int j) {
     int item = grille[i][j];
-    if ((item == 13) && (temps_restant > DIMINUTION_DUREE_MALUS)) {
+    if (malus_actif && (item == 13) && (temps_restant > DIMINUTION_DUREE_MALUS)) {
         // On fait comme si le jeu avait demarré 10 secondes plus tot
         debut -= DIMINUTION_DUREE_MALUS * CLOCKS_PER_SEC;
         Beep(200,1000);
@@ -878,9 +880,11 @@ int jeu(void) {
                             afficherItemsRestants(compteurs_contrat);
                             appliquerGravite();
                             genererItems ();
+                            malus_actif = false;
                         }
                     } while (fig.type != PAS_DE_FIGURE);
                     assurerGrilleJouable ();
+                    malus_actif = true;
                 }
             }
         }
