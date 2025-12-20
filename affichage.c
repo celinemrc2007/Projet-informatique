@@ -134,6 +134,7 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <conio.h>
+#include <string.h>
 
 #include "affichage.h"
 #include "gestionClavier.h"
@@ -142,10 +143,10 @@
 #define LARGEUR 9
 #define COLONNE_INFO (LARGEUR * 2 + 6) //chaque case fait deux caractères, +6 permet l'espace entre la grille et les infos
 #define LIGNE_CONTRAT 1
-#define LIGNE_NIVEAU  8
-#define LIGNE_COUPS   10
-#define LIGNE_TEMPS   12
-#define LIGNE_VIES    14
+#define LIGNE_NIVEAU  13
+#define LIGNE_COUPS   8
+#define LIGNE_TEMPS   10
+#define LIGNE_VIES    16
 
 /* =================== OUTILS CONSOLE =================== */
 
@@ -165,13 +166,19 @@ void text_color(int color) {
 /* =================== AFFICHAGES INFOS =================== */
 
 void afficherNumeroNiveau(int niveau) {
-    gotoxy(COLONNE_INFO, 7);
-    printf("Niveau : %d", niveau);
+    char texte[20];
+    sprintf(texte, "Niveau %d", niveau);
+
+    int largeur_grille = LARGEUR * 2 + 4;
+    int x = (largeur_grille - strlen(texte)) / 2;
+
+    gotoxy(x, LIGNE_NIVEAU);
+    printf("%s", texte);
 }
 
 void afficherNombredeVies(int vies_restantes) {
-    gotoxy(COLONNE_INFO, LIGNE_VIES);
-    printf("Vies  : %d  ", vies_restantes);
+    gotoxy(0, LIGNE_VIES);
+    printf("Vies : %d   ", vies_restantes);
 }
 
 void afficherCoupsRestants(int coups_restants) {
@@ -267,6 +274,6 @@ void afficherItemsRestants(int items[]) {
     gotoxy(COLONNE_INFO, 4);
     printf("@ : %d  ", items[4]);
     gotoxy(COLONNE_INFO, 5);
-    printf("%% : %d  a", items[5]);
+    printf("%% : %d  ", items[5]);
     gotoxy(0,15); // pour printf debug
 }
