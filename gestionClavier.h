@@ -1,7 +1,3 @@
-
-
-
-//*********************NOUVELLE VERSION****************************//
 #ifndef GESTION_CLAVIER_H
 #define GESTION_CLAVIER_H
 
