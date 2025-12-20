@@ -127,7 +127,8 @@ void gererEchecNiveau() {
         //Demande à l'utilisateur s'il souhaite retenter le niveau ou quitter le programme
         char choix;
         printf("\nIl vous reste %d vie(s).\n", vies_restantes);      
-        printf("Relancer le niveau ? (O/N) ");
+        printf("Souhaitez vous relancer le niveau ? \n");
+        printf("Saisir O pour oui. Saisir N pour non.");
         while(!_kbhit()) { Sleep(20); }
         choix = _getch();
         if (choix == 'O' || choix == 'o'){
