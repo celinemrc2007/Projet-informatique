@@ -165,7 +165,7 @@ void lancerNiveau(int compteurs_contrat[7]) {
             compteurs_contrat[ITEM_X] = 25;
             compteurs_contrat[ITEM_O] = 20;
             compteurs_contrat[ITEM_POURCENT] = 20;
-            compteurs_contrat[ITEM_ET] = 25;
+            compteurs_contrat[ITEM_ET] = 15;
             coups_restants = 30;
             temps_restant = 105; //1 min 45
             break;
