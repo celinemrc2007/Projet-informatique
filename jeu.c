@@ -831,7 +831,10 @@ int jeu(void) {
         if (temps_restant <= 0) return 2;
 
         afficherGrille(grille);
+        afficherNumeroNiveau(niveau);
         afficherCoupsRestants(coups_restants);
+        afficherTempsRestant(temps_restant);
+        afficherNombredeVies(vies_restantes);
         afficherItemsRestants(compteurs_contrat);
 
         if (_kbhit()) {
