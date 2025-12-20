@@ -10,7 +10,7 @@
 #include "gestionClavier.h"
 #include "gestionNiveau.h"
 #include "sauvegarde.h"
-#include "jouer.h"
+#include "jeu.h"
 
 void clrscr(void)
 {
