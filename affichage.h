@@ -15,8 +15,8 @@
 #include <windows.h>
 
 /* Dimensions de la grille */
-#define HAUTEUR 12
-#define LARGEUR 11
+#define HAUTEUR 10
+#define LARGEUR 9
 
 /* =================== OUTILS CONSOLE =================== */
 
