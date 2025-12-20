@@ -20,6 +20,10 @@ void afficherItemsRestants(int itemsRestants[]); //afficher le nombre d'items re
 #define HAUTEUR 10
 #define LARGEUR 9
 
+/* ============== VARIABLES ==================*/
+
+extern int temps_restant;
+
 /* =================== OUTILS CONSOLE =================== */
 
 /* Déplace le curseur de la console */
