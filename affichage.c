@@ -1,3 +1,4 @@
+
 // #include <stdio.h>
 // #include <stdlib.h>
 // #include <windows.h>
@@ -199,16 +200,28 @@ void afficherTempsRestant(int temps_restant) {
 void afficherRegles() {
     system("cls");
     printf("======= Regles du jeu =======\n");
-    printf("Le but du jeu est d'eliminer le plus d'items possible lors d'un niveau. Il y a 3 niveaux par partie, pour chaque niveau, l'utilisateur doit repondre a un contrat lui indiquant le nombre d'items a eliminer et le temps imparti.\n");
+    printf("Le but du jeu est d'eliminer le plus d'items possible lors d'un niveau.\n");
+    printf("Il y a 3 niveaux par partie, pour chaque niveau, l'utilisateur doit repondre a un contrat lui indiquant le nombre d'items a eliminer et le temps imparti.\n");
     printf("Pour vous deplacer dans la grille de jeu, utilisez les touches suivantes : \n");
     printf("  z : haut\n");
     printf("  s : bas\n");
     printf("  q : gauche\n");
     printf("  d : droite\n");
-    printf("Appuyez sur shift pour selectionner un item.\n");
+    printf("Votre but est de former des suites de 4 items ou plus. Vous pouvez egalement former les figures ci-dessus:\n"); 
+    printf("\n");
+    printf("                                            XXXX           X\n");
+    printf("                                            X  X           X\n");
+    printf("                                            X  X         XXXXX\n");
+    printf("                                            XXXX           X  \n");
+    printf("                                                           X  \n");
+    printf("\n");
+    printf("Pour cela, echangez des items de place.\n");
+    printf("Appuyez sur shift pour selectionner un item puis indiquer la direction de la permutation avec les touches ci-dessus.\n");
     printf("Chaque niveau peut etre sauvegarde avec un pseudo utilisateur, afin d'y retourner plus tard.\n");
+    printf("A partir du niveau 2, mefiez-vous des items pourcent: ceux en rouge vous font perdre 10 secondes si vous les assemblez.\n");
+    printf("A partir du niveau 3, si vous assemblez 5 items identique  la suite, vous gagnez 5 coups supplementaires.\n");
     printf("A vous de jouer !\n");
-    printf("\nAppuyez sur une touche pour revenir au menu :)");
+    printf("\nAppuyez n'importe quelle touche de votre clavier pour revenir au menu :)");
     _getch();
 }
 
