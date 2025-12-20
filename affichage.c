@@ -229,6 +229,7 @@ void afficherGrille(int grille[HAUTEUR][LARGEUR]) {
                 case 3: text_color(FOREGROUND_GREEN); printf("& "); break;
                 case 4: text_color(FOREGROUND_RED | FOREGROUND_GREEN); printf("@ "); break;
                 case 5: text_color(FOREGROUND_RED | FOREGROUND_BLUE); printf("%% "); break;
+                case 13: text_color(FOREGROUND_RED); printf("%% "); break;
                 default: printf("? "); break;
             }
             text_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
