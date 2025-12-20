@@ -82,8 +82,8 @@
 #include "gestionClavier.h"
 
 /* Dimensions de la grille */
-#define HAUTEUR 12
-#define LARGEUR 11
+#define HAUTEUR 10
+#define LARGEUR 9
 
 /* ================= VARIABLES GLOBALES ================= */
 
@@ -102,51 +102,6 @@ int colonneCurseur(void) {
 }
 
 /* ================= GESTION SELECTION ================= */
-
-/*
- * Retourne true si une tentative d'échange est demandée
- * l1,c1 : position initiale
- * l2,c2 : position cible
- */
-// bool selectionItem(char touche, int *l1, int *c1, int *l2, int *c2)
-// {
-//     *l1 = curseurL;
-//     *c1 = curseurC;
-//     *l2 = curseurL;
-//     *c2 = curseurC;
-
-//     switch (touche) {
-//         case 'q': // gauche
-//             if (curseurC > 0) {
-//                 (*c2)--;
-//                 return true;
-//             }
-//             break;
-
-//         case 's': // droite
-//             if (curseurC < LARGEUR - 1) {
-//                 (*c2)++;
-//                 return true;
-//             }
-//             break;
-
-//         case 'z': // haut
-//             if (curseurL > 0) {
-//                 (*l2)--;
-//                 return true;
-//             }
-//             break;
-
-//         case 'w': // bas
-//             if (curseurL < HAUTEUR - 1) {
-//                 (*l2)++;
-//                 return true;
-//             }
-//             break;
-//     }
-
-//     return false;
-// }
 
 // Retourne true si le joueur essaie d'échanger 2 items
 bool selectionItem (char touche, int *l1, int *c1, int *l2, int *c2) {
