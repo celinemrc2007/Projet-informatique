@@ -429,15 +429,12 @@
 #include <conio.h>
 #include <stdbool.h>
 
-#include "jeu.h"
 #include "affichage.h"
+#include "jeu.h"
 #include "gestionClavier.h"
 #include "gestionNiveau.h"
 
 /* ================= CONSTANTES ================= */
-
-#define HAUTEUR 12
-#define LARGEUR 11
 
 #define PAS_DE_FIGURE 0
 #define SUITE_LIGNE 1
