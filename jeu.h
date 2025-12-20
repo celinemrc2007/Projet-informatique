@@ -1,20 +1,6 @@
-
-// void viderGrille ();
-// void assurerGrilleJouable ();
-// int verifierAbsencesFiduresInitiales ();
-// void appliquerGravite ();
-// void melangerItems ();
-// int jeu ();
-// void genererItems();
-// int gererContrat();
-
-
-//*******************************NOUVELLE VERSION**********************//
 #ifndef JEU_H
 #define JEU_H
 
-#define HAUTEUR 10
-#define LARGEUR 9
 #define PAS_DE_FIGURE 0
 #define SUITE_LIGNE 1
 #define SUITE_COLONNE 2
